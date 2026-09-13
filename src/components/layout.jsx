@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Header from "./header";
 import Main from "./main";
 import Aside from "./aside";
@@ -8,7 +7,7 @@ import Notifications from "./notifications";
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(true);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const handleClick = () => {
     setIsOpen(!isOpen);
   };

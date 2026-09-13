@@ -1,6 +1,8 @@
 import { FaBell } from "react-icons/fa6";
 import { FaMoon } from "react-icons/fa6";
-import { FaCog } from "react-icons/fa";
+import { FaLanguage } from "react-icons/fa6";
+import { IoSparkles } from "react-icons/io5";
+//import { FaRobot } from "react-icons/fa6";
 
 export default function Icons({ toggle }) {
   return (
@@ -12,7 +14,10 @@ export default function Icons({ toggle }) {
         <FaMoon></FaMoon>
       </button>
       <button className="icons">
-        <FaCog></FaCog>
+        <FaLanguage></FaLanguage>
+      </button>
+      <button className="icons">
+        <IoSparkles></IoSparkles>
       </button>
     </>
   );

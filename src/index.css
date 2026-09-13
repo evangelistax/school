@@ -12,7 +12,7 @@
     "aside main main main"
     "aside main main main";
   gap: 15px;
-  column-gap: 8px;
+  column-gap: 4px;
   background-color: black;
   transition: 0.5s all ease;
 }
@@ -46,7 +46,7 @@
 .main {
   grid-area: main;
   background: rgba(39, 38, 38, 0.9);
-  border-radius: 8px;
+  margin-right: 10px;
 }
 
 ul {
@@ -87,7 +87,7 @@ header .overview {
   height: 30%;
 }
 
-header .overview h3 {
+header .overview {
   color: white;
 }
 
@@ -101,12 +101,15 @@ header .overview select {
 .buttons {
   display: flex;
   gap: 10px;
+  margin-right: 40px;
 }
 
 .buttons input {
   border-radius: 8px;
   background-color: rgba(39, 38, 38, 0.9);
+  color: white;
   border: none;
+  padding-left: 10px;
 }
 
 .options ul {
@@ -117,7 +120,7 @@ header .overview select {
   align-items: center;
 }
 
-.options ul li a {
+.link {
   text-decoration: none;
   color: white;
 }
@@ -189,11 +192,12 @@ img {
   border-radius: 100%;
 }
 
-.main {
+.analytics {
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-rows: 130px 1fr;
   gap: 10px;
-  grid-area: main;
   margin-left: 0;
 }
 
@@ -333,7 +337,7 @@ img {
   align-items: center;
   justify-content: center;
   transition: 0.5s all ease;
-
+  z-index: 99;
   cursor: pointer;
 }
 
@@ -361,6 +365,8 @@ img {
   justify-content: center;
   border-radius: 50%;
   border-style: none;
+  height: 20px;
+  width: 20px;
 }
 
 .icons :hover {
@@ -376,6 +382,8 @@ img {
   right: 0;
   background: rgba(126, 123, 123, 0.8);
   transition: 0.5s all;
+  margin-right: 10px;
+  z-index: 99;
 }
 
 .notifications.collapsed {
@@ -388,4 +396,38 @@ img {
 
 p {
   color: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: white;
+}
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  background: rgba(39, 38, 38, 0.9);
+}
+th {
+  background: rgb(250, 210, 250);
+  font-weight: bold;
+  color: black;
+}
+
+.table {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.table::-webkit-scrollbar {
+  width: 6px;
+  overflow: hidden;
+}
+.table::-webkit-scrollbar-track {
+  background: transparent;
+}
+.table::-webkit-scrollbar-thumb {
+  background: white;
 }

@@ -1,4 +1,5 @@
 import Icons from "./icons";
+import { Link } from "react-router-dom";
 export default function Header({ toggle }) {
   return (
     <header className="header">
@@ -6,10 +7,14 @@ export default function Header({ toggle }) {
         <aside>
           <ul>
             <li>
-              <a href="#">Dashboard</a>
+              <Link to="/analytics" className="link">
+                Dashboard
+              </Link>
             </li>
             <li>
-              <a href="#">Settings</a>
+              <Link to="/settings" className="link">
+                Settings
+              </Link>
             </li>
           </ul>
         </aside>
@@ -28,10 +33,26 @@ export default function Header({ toggle }) {
         </select>
       </div>
       <div className="links-containers">
-        <div className="links-items">Students</div>
-        <div className="links-items">Teachers</div>
-        <div className="links-items">Reports</div>
-        <div className="links-items">Analitycs</div>
+        <div className="links-items">
+          <Link to="/" className="link">
+            Students
+          </Link>
+        </div>
+        <div className="links-items">
+          <Link to="/teachers" className="link">
+            Teachers
+          </Link>
+        </div>
+        <div className="links-items">
+          <Link to="/reports" className="link">
+            Reports
+          </Link>
+        </div>
+        <div className="links-items">
+          <Link to="/analytics" className="link">
+            Analytics
+          </Link>
+        </div>
       </div>
     </header>
   );

@@ -1,20 +1,20 @@
+import { Routes, Route } from "react-router-dom";
+import Students from "../pages/students";
+import Teachers from "../pages/teachers";
+import Analytics from "../pages/analitycs";
+import Reports from "../pages/reports";
+import Settings from "../pages/settings";
+
 export default function Main() {
   return (
     <main className="main">
-      <div className="cards-container">
-        <div className="cards-items"></div>
-        <div className="cards-items"></div>
-        <div className="cards-items"></div>
-        <div className="cards-items"></div>
-      </div>
-      <div className="stats-container">
-        <div className="stats-items"></div>
-        <div className="stats-items"></div>
-        <div className="stats-items"></div>
-        <div className="stats-items"></div>
-        <div className="stats-items"></div>
-        <div className="stats-items"></div>
-      </div>
+      <Routes>
+        <Route path="/" element={<Students></Students>}></Route>
+        <Route path="/teachers" element={<Teachers></Teachers>}></Route>
+        <Route path="/analytics" element={<Analytics></Analytics>}></Route>
+        <Route path="/reports" element={<Reports></Reports>}></Route>
+        <Route path="/settings" element={<Settings></Settings>}></Route>
+      </Routes>
     </main>
   );
 }
