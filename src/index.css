@@ -1,8 +1,42 @@
+/*Definicion de los colores*/
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-terciary: #d3d1d1;
+  --tex-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --acent: #2563eb;
+  --border: #e5e5e5;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --toolkit-bar: #686666;
+}
+
+.dark {
+  --bg-primary: #000;
+  --bg-secondary: #2c2b2b;
+  --bg-terciary: #c0bdbd;
+  --tex-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --acent: #2563eb;
+  --border: #e5e5e5;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --toolkit-bar: #e7e2e2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+}
+
+* {
+  transition: all ease 1s;
+}
+
 .layout {
-  position: relative;
   height: 100vh;
   width: 100%;
-  background-color: antiquewhite;
   display: grid;
   grid-template-columns: 120px repeat(3, 1fr);
   grid-template-rows: 120px repeat(2, 1fr) 70px;
@@ -13,25 +47,12 @@
     "aside main main main";
   gap: 15px;
   column-gap: 4px;
-  background-color: black;
-  transition: 0.5s all ease;
+  transition: all ease 0.5s;
 }
 
 .layout.collapsed {
-  position: relative;
-  height: 100vh;
-  background-color: antiquewhite;
-  display: grid;
   grid-template-columns: 0px repeat(3, 1fr);
-  grid-template-rows: 120px repeat(2, 1fr) 70px;
-  grid-template-areas:
-    "aside header header header"
-    "aside main main main"
-    "aside main main main"
-    "aside main main main";
-  gap: 15px;
   column-gap: 8px;
-  background-color: black;
 }
 
 .header {
@@ -45,7 +66,7 @@
 
 .main {
   grid-area: main;
-  background: rgba(39, 38, 38, 0.9);
+  background: var(--bg-primary);
   margin-right: 10px;
 }
 
@@ -77,7 +98,7 @@ ul {
 
 .header nav ul li a {
   text-decoration: none;
-  color: white;
+  color: var(--tex-primary);
 }
 
 header .overview {
@@ -88,13 +109,13 @@ header .overview {
 }
 
 header .overview {
-  color: white;
+  color: var(--tex-primary);
 }
 
 header .overview select {
-  background: black;
+  background: var(--bg-secondary);
   border: none;
-  color: white;
+  color: var(--tex-primary);
   margin-right: 30px;
 }
 
@@ -106,9 +127,9 @@ header .overview select {
 
 .buttons input {
   border-radius: 8px;
-  background-color: rgba(39, 38, 38, 0.9);
-  color: white;
-  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--tex-primary);
+  border: 1px solid var(--border);
   padding-left: 10px;
 }
 
@@ -122,17 +143,17 @@ header .overview select {
 
 .link {
   text-decoration: none;
-  color: white;
+  color: var(--tex-primary);
 }
 
 .options ul li:hover {
-  background: rgba(100, 98, 98, 0.9);
+  background: var(--bg-terciary);
 }
 
 .links-containers {
   display: flex;
   width: 400px;
-  background: rgba(39, 38, 38, 0.9);
+  background: var(--bg-secondary);
   justify-content: space-around;
   align-items: center;
   border-radius: 4px;
@@ -143,17 +164,18 @@ header .overview select {
   justify-content: center;
   width: 25%;
   border-radius: 4px;
-  color: white;
+  color: var(--tex-primary);
   cursor: pointer;
+  transition: none;
 }
 
 .links-items:hover {
-  background: rgba(206, 201, 201, 0.9);
+  background: var(--bg-terciary);
 }
 
 .aside {
   grid-area: aside;
-  background: rgba(39, 38, 38, 0.9);
+  background: var(--bg-secondary);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -162,7 +184,6 @@ header .overview select {
   padding-left: 0;
   border-top-right-radius: 18px;
   border-bottom-right-radius: 18px;
-  transition: all 0.5s ease;
 }
 
 .aside.collapsed {
@@ -213,7 +234,7 @@ img {
   height: 100%;
   border-radius: 10px;
 }
-
+/*
 .cards-items:first-child {
   background: rgb(211, 170, 211);
 }
@@ -229,6 +250,7 @@ img {
 .cards-items:last-child {
   background: rgb(201, 201, 241);
 }
+
 
 .stats-container {
   display: grid;
@@ -279,7 +301,7 @@ img {
   grid-row: 4/6;
   background: rgba(39, 38, 38, 0.9);
 }
-
+*/
 .aside::-webkit-scrollbar {
   width: 6px;
   overflow: hidden;
@@ -288,7 +310,7 @@ img {
   background: transparent;
 }
 .aside::-webkit-scrollbar-thumb {
-  background: #444;
+  background: var(--bg-secondary);
   border-radius: 10px;
   visibility: hidden;
 }
@@ -304,12 +326,12 @@ img {
 }
 
 .white-text {
-  color: white;
+  color: var(--tex-primary);
 }
 
 .chart-header ul {
   display: flex;
-  color: white;
+  color: var(--tex-primary);
   gap: 10px;
 }
 
@@ -336,7 +358,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.5s all ease;
+  transition: all ease 0.5s;
   z-index: 99;
   cursor: pointer;
 }
@@ -380,7 +402,7 @@ img {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: rgba(126, 123, 123, 0.8);
+  background: var(--bg-secondary);
   transition: 0.5s all;
   margin-right: 10px;
   z-index: 99;
@@ -395,20 +417,20 @@ img {
 }
 
 p {
-  color: white;
+  color: var(--tex-primary);
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  color: white;
+  color: var(--text-secondary);
 }
 th,
 td {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   padding: 8px;
   text-align: left;
-  background: rgba(39, 38, 38, 0.9);
+  background: var(--bg-secondary);
 }
 th {
   background: rgb(250, 210, 250);
@@ -429,5 +451,5 @@ th {
   background: transparent;
 }
 .table::-webkit-scrollbar-thumb {
-  background: white;
+  background: var(--toolkit-bar);
 }
