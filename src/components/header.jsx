@@ -1,7 +1,6 @@
 import Icons from "./icons";
 import { Link } from "react-router-dom";
-export default function Header({ toggle, theme, valor }) {
-  console.log(valor, "desde header");
+export default function Header() {
   return (
     <header className="header">
       <nav>
@@ -21,7 +20,7 @@ export default function Header({ toggle, theme, valor }) {
         </aside>
         <div className="buttons">
           <input type="search" name="search" id="search" />
-          <Icons toggle={toggle} theme={theme} valor={valor}></Icons>
+          <Icons></Icons>
         </div>
       </nav>
       <div className="overview">

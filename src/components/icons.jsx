@@ -3,17 +3,16 @@ import { FaMoon } from "react-icons/fa6";
 import { FaSun } from "react-icons/fa6";
 import { FaLanguage } from "react-icons/fa6";
 import { IoSparkles } from "react-icons/io5";
-//import { FaRobot } from "react-icons/fa6";
-
-export default function Icons({ toggle, theme, valor }) {
-  console.log(valor, "desde icons");
+import { useApp } from "../contexts/utils";
+export default function Icons() {
+  const { oscuro, changeTheme, switchs } = useApp();
   return (
     <>
-      <button className="icons" onClick={toggle}>
+      <button className="icons" onClick={switchs}>
         <FaBell></FaBell>
       </button>
-      <button className="icons" onClick={theme}>
-        {valor ? <FaSun></FaSun> : <FaMoon></FaMoon>}
+      <button className="icons" onClick={changeTheme}>
+        {oscuro ? <FaSun></FaSun> : <FaMoon></FaMoon>}
       </button>
       <button className="icons">
         <FaLanguage></FaLanguage>

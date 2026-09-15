@@ -1,5 +1,7 @@
-export default function Aside({ status }) {
-  const classname = status ? "aside" : "aside collapsed";
+import { useApp } from "../contexts/utils";
+export default function Aside() {
+  const { isOpen } = useApp;
+  const classname = isOpen ? "aside" : "aside collapsed";
   return (
     <aside className={classname}>
       <div className="profile">
@@ -7,7 +9,7 @@ export default function Aside({ status }) {
           <strong>Esono</strong>
           <small>Director</small>
         </div>
-        <img src="" />
+        <img src={null} />
       </div>
     </aside>
   );

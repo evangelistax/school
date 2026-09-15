@@ -68,6 +68,7 @@ body {
   grid-area: main;
   background: var(--bg-primary);
   margin-right: 10px;
+  color: var(--tex-primary);
 }
 
 ul {
@@ -413,7 +414,6 @@ img {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: rgba(126, 123, 123, 0.8);
 }
 
 p {
