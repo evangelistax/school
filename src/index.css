@@ -48,11 +48,16 @@ body {
   gap: 15px;
   column-gap: 4px;
   transition: all ease 0.5s;
+  position: relative;
 }
 
 .layout.collapsed {
   grid-template-columns: 0px repeat(3, 1fr);
   column-gap: 8px;
+}
+
+.layout.collapsed .profile-menu {
+  left: 8px;
 }
 
 .header {
@@ -82,16 +87,19 @@ ul {
   padding: 0 20px;
   gap: 0;
 }
+
 .header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 40%;
 }
+
 .header nav ul {
   display: flex;
   gap: 10px;
 }
+
 .header nav ul li {
   list-style: none;
   text-decoration: none;
@@ -132,6 +140,7 @@ header .overview select {
   color: var(--tex-primary);
   border: 1px solid var(--border);
   padding-left: 10px;
+  outline: none;
 }
 
 .options ul {
@@ -185,10 +194,13 @@ header .overview select {
   padding-left: 0;
   border-top-right-radius: 18px;
   border-bottom-right-radius: 18px;
+  gap: 10px;
+  border-style: none;
+  cursor: pointer;
 }
 
 .aside.collapsed {
-  padding: 30px 2px;
+  padding-right: 0;
 }
 
 .profile {
@@ -200,7 +212,7 @@ header .overview select {
   border-bottom-right-radius: 20px;
   gap: 4px;
   height: 80px;
-  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .data {
@@ -213,6 +225,108 @@ img {
   width: 38px;
   border-radius: 100%;
 }
+
+.profile-menu {
+  position: absolute;
+  top: 42px;
+  left: 122px;
+  width: 180px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    background 0.5s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease,
+    left 0.5s ease;
+}
+
+.profile-menu.collapsed {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+
+/* ---------- Profile ---------- */
+
+.profile-img {
+  width: 100%;
+  height: 80px;
+
+  border-radius: 8px;
+  background: rgb(250, 210, 250);
+
+}
+
+.profile-img-container {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 39px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ---------- Actions ---------- */
+
+.profile-actions {
+  width: 100%;
+}
+
+.profile-actions ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-actions li {
+  min-height: 38px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.5s ease;
+}
+
+.profile-actions li:hover {
+  background-color: var(--bg-terciary);
+  border-color: var(--border);
+}
+
+.profile-actions li:active {
+  transform: scale(0.98);
+}
+
+
 
 .analytics {
   width: 100%;
@@ -235,6 +349,7 @@ img {
   height: 100%;
   border-radius: 10px;
 }
+
 /*
 .cards-items:first-child {
   background: rgb(211, 170, 211);
@@ -307,9 +422,11 @@ img {
   width: 6px;
   overflow: hidden;
 }
+
 .aside::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .aside::-webkit-scrollbar-thumb {
   background: var(--bg-secondary);
   border-radius: 10px;
@@ -342,6 +459,7 @@ img {
   position: relative;
   padding: 20px;
 }
+
 .line-chart-svg {
   width: 100%;
   height: 100%;
@@ -382,6 +500,7 @@ img {
 .toggleButton :hover {
   cursor: pointer;
 }
+
 .icons {
   display: flex;
   align-items: center;
@@ -398,15 +517,16 @@ img {
 
 .notifications {
   border-top-left-radius: 8px;
-  height: 350px;
-  width: 200px;
+  height: 600px;
+  width: 150px;
   position: absolute;
   bottom: 0;
   right: 0;
-  background: var(--bg-secondary);
+  background: color-mix(var(--bg-secondary), transparent 20%);
   transition: 0.5s all;
   margin-right: 10px;
   z-index: 99;
+  backdrop-filter: blur(10px);
 }
 
 .notifications.collapsed {
@@ -425,6 +545,7 @@ table {
   width: 100%;
   color: var(--text-secondary);
 }
+
 th,
 td {
   border: 1px solid var(--border);
@@ -432,6 +553,7 @@ td {
   text-align: left;
   background: var(--bg-secondary);
 }
+
 th {
   background: rgb(250, 210, 250);
   font-weight: bold;
@@ -447,9 +569,17 @@ th {
   width: 6px;
   overflow: hidden;
 }
+
 .table::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .table::-webkit-scrollbar-thumb {
   background: var(--toolkit-bar);
+}
+
+
+.buttons input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
 }

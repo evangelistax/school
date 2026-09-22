@@ -5,7 +5,12 @@ export const GlobalContex = ({ children }) => {
   const [oscuro, setOscuro] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [isActive, setIsActive] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
+  const changeVisibility = () => {
+    setIsVisible(!isVisible);
+    console.log("button clicked");
+  };
   const changeTheme = () => {
     setOscuro(!oscuro);
     console.log(oscuro);
@@ -20,7 +25,16 @@ export const GlobalContex = ({ children }) => {
 
   return (
     <contex.Provider
-      value={{ oscuro, changeTheme, isOpen, handleClick, isActive, switchs }}
+      value={{
+        oscuro,
+        changeTheme,
+        isOpen,
+        handleClick,
+        isActive,
+        switchs,
+        isVisible,
+        changeVisibility,
+      }}
     >
       {children}
     </contex.Provider>
