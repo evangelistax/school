@@ -9,11 +9,9 @@ export const GlobalContex = ({ children }) => {
 
   const changeVisibility = () => {
     setIsVisible(!isVisible);
-    console.log("button clicked");
   };
   const changeTheme = () => {
     setOscuro(!oscuro);
-    console.log(oscuro);
   };
   const handleClick = () => {
     setIsOpen(!isOpen);
