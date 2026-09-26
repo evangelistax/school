@@ -3,6 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: system-ui;
 }
 
 :root {
@@ -73,12 +74,24 @@ body {
   gap: 0;
 }
 
+.box-test {
+  width: 300px;
+  height: 300px;
+  background-color: bisque;
+}
+
 .main {
   grid-area: main;
   background: var(--bg-primary);
-  margin-right: 10px;
+  margin-right: 12px;
   color: var(--tex-primary);
   transition: background 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+
 }
 
 ul {
@@ -593,16 +606,28 @@ p {
   color: var(--tex-primary);
 }
 
+.table-container {
+  width: 100%;
+  overflow: auto;
+  max-height: 95%;
+  position: absolute;
+  top: 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+
+}
+
 table {
   border-collapse: collapse;
-  width: 100%;
   color: var(--text-secondary);
   transition: color 1s ease;
+  width: 100%;
+
 }
 
 th,
 td {
   border: 1px solid var(--border);
+  height: 40px;
   padding: 8px;
   text-align: left;
   background: var(--bg-secondary);
@@ -615,23 +640,31 @@ th {
   color: black;
 }
 
-.table {
-  height: 100%;
-  overflow-y: scroll;
+tr:hover td {
+  background: var(--bg-primary);
+  cursor: pointer;
+}
+
+
+.number {
+  text-align: right;
 }
 
 .table::-webkit-scrollbar {
+  border-radius: 12px;
   width: 6px;
   overflow: hidden;
 }
 
 .table::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 12px;
 }
 
 .table::-webkit-scrollbar-thumb {
   background: var(--toolkit-bar);
   transition: background 1s ease;
+  border-radius: 12px;
 }
 
 

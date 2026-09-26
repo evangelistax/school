@@ -1,3 +1,3 @@
 export default function Reports() {
-  return <p>reportes</p>;
+  return <div className="box-test"></div>;
 }

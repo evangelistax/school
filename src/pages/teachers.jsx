@@ -200,8 +200,8 @@ export default function Teachers() {
     },
   ];
   return (
-    <div className="table">
-      <table className="table">
+    <div className="table-container">
+      <table>
         <thead className="table-header-group">
           <tr className="table-header-group">
             <th>ID</th>
@@ -221,10 +221,10 @@ export default function Teachers() {
               <td>{t.id}</td>
               <td>{t.name}</td>
               <td>{t.surename}</td>
-              <td>{t.age}</td>
+              <td className="number">{t.age}</td>
               <td>{t.sex}</td>
-              <td>{t.phone}</td>
-              <td>{t.salary}</td>
+              <td className="number">{t.phone}</td>
+              <td className="number">{t.salary} Fcfa</td>
               <td>{t.titulation}</td>
               <td>{t.residence}</td>
             </tr>

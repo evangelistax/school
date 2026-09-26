@@ -35,8 +35,8 @@ export default function Students() {
     },
   ];
   return (
-    <div className="estudiantes">
-      <table id="tabla-alumnos">
+    <div className="table-container">
+      <table>
         <thead>
           <tr>
             <th>ID</th>
