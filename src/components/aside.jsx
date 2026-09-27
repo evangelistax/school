@@ -21,7 +21,7 @@ export default function Aside() {
       </button>
       <div className="sidebar-menu-links">
         <ul className="links-sidebar">
-          <li>
+          <li className="pr">
             <FaUserGraduate />
             <a href="">Enrollements</a>
           </li>
@@ -38,6 +38,7 @@ export default function Aside() {
             <a href="">Finances</a>
           </li>
         </ul>
+        <button className="logout">cerrar sesion</button>
       </div>
     </div>
   );

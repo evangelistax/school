@@ -203,7 +203,7 @@ export default function Teachers() {
     <div className="table-container">
       <table>
         <thead className="table-header-group">
-          <tr className="table-header-group">
+          <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Surename</th>
