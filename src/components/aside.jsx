@@ -6,7 +6,9 @@ export default function Aside() {
   const classname = isOpen ? "aside" : "aside collapsed";
   return (
     <div className={classname}>
-      <nav className="sidebar-nav"></nav>
+      <nav className="sidebar-nav">
+        <p>mi primer cambio compartido</p>
+      </nav>
     </div>
   );
 }
