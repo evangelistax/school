@@ -31,7 +31,8 @@
   --shadow: rgba(0, 0, 0, 0.5);
   --toolkit-bar: #e7e2e2;
   --background: rgb(146, 144, 144);
-  --shadow: rgb(80, 79, 79);
+  --shadow: #000;
+
 }
 
 body {
@@ -54,7 +55,7 @@ body {
     "aside main main main";
   gap: 15px;
   column-gap: 4px;
-  transition: grid-template-columns ease 10s;
+  transition: grid-template-columns ease 1s, column-gap 1s ease;
   position: relative;
 }
 
@@ -92,8 +93,6 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-
-
 }
 
 ul {
@@ -106,6 +105,30 @@ ul {
   grid-area: header;
   padding: 0 20px;
   gap: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.botones {
+  color: var(--tex-primary);
+  height: 22px;
+  width: 22px;
+}
+
+.collapse-botton {
+  border-style: none;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+
+.collapse-botton:hover {
+  cursor: pointer;
 }
 
 .header nav {
@@ -228,7 +251,6 @@ header .overview select option {
   padding: 8px;
   padding-top: 30px;
   padding-left: 0;
-  border-top-right-radius: 18px;
   gap: 10px;
   transition: background 1s ease;
   flex-shrink: 0;
@@ -238,157 +260,6 @@ header .overview select option {
 .aside.collapsed {
   padding-right: 0;
 }
-
-.profile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgb(250, 210, 250);
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  gap: 4px;
-  height: 80px;
-  overflow: hidden;
-  cursor: pointer;
-  border-style: none;
-  flex-shrink: 0;
-}
-
-.data {
-  display: flex;
-  flex-direction: column;
-}
-
-img {
-  height: 60px;
-  width: 60px;
-  border-radius: 100%;
-}
-
-.profile-menu {
-  position: absolute;
-  top: 42px;
-  left: 122px;
-  width: 180px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.08);
-  z-index: 100;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition:
-    background 0.5s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    visibility 0.2s ease,
-    left 0.5s ease;
-}
-
-.profile-menu.collapsed {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  pointer-events: none;
-}
-
-
-/* ---------- Profile ---------- */
-
-.profile-img {
-  width: 100%;
-  height: 80px;
-
-  border-radius: 8px;
-  background: rgb(250, 210, 250);
-
-}
-
-.profile-img-container {
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  top: 39px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-
-/* ---------- Actions ---------- */
-
-.profile-actions {
-  width: 100%;
-}
-
-.profile-actions ul {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.profile-actions li {
-  height: 38px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  color: var(--tex-primary);
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.5s ease;
-}
-
-.profile-actions li:hover {
-  background-color: var(--background);
-  border-color: var(--border);
-}
-
-.profile-actions li:active {
-  transform: scale(0.98);
-}
-
-.sidebar-menu-links {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  box-shadow: 0px 4px 10px var(--shadow);
-}
-
-.logout {
-  height: 38px;
-  background: rgb(250, 210, 250);
-  border-style: none;
-  flex-shrink: 0;
-
-}
-
-
-.logout:hover {
-  cursor: pointer;
-  background: red;
-  transition: background 0.5s ease;
-}
-
-
 
 
 
@@ -567,14 +438,14 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all ease 0.5s;
+  transition: transform 1s ease;
   z-index: 99;
   cursor: pointer;
 }
 
 .toggleButton.collapsed {
   position: absolute;
-  left: 0px;
+  transform: translateX(0);
   top: 50%;
   width: 25px;
   height: 25px;
@@ -637,7 +508,6 @@ p {
   position: absolute;
   top: 0;
   box-shadow: 0px 4px 10px var(--shadow);
-  margin: 0;
   padding: 0;
 
 }

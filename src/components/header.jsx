@@ -1,10 +1,23 @@
 import Icons from "./icons";
+import { useApp } from "../contexts/utils";
+import { LuPanelLeft, LuPanelRight } from "react-icons/lu";
 import { Link } from "react-router-dom";
+
 export default function Header() {
+  const { isOpen, handleClick } = useApp();
+  const content = isOpen ? (
+    <LuPanelLeft className="botones" />
+  ) : (
+    <LuPanelRight className="botones" />
+  );
+
   return (
     <header className="header">
       <nav>
-        <aside>
+        <div className="header-actions">
+          <button className="collapse-botton" onClick={handleClick}>
+            {content}
+          </button>
           <ul>
             <li>
               <Link to="/analytics" className="link">
@@ -17,7 +30,8 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-        </aside>
+        </div>
+
         <div className="buttons">
           <input type="search" name="search" id="search" />
           <Icons></Icons>
