@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+
 /*Definicion de los colores*/
 * {
   box-sizing: border-box;
@@ -46,7 +49,7 @@ body {
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: 140px repeat(3, 1fr);
+  grid-template-columns: 180px repeat(3, 1fr);
   grid-template-rows: 120px repeat(2, 1fr) 70px;
   grid-template-areas:
     "aside header header header"
@@ -247,13 +250,22 @@ header .overview select option {
   background: var(--bg-secondary);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  justify-content: space-between;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 8px;
   padding-top: 30px;
   padding-left: 0;
   gap: 10px;
   transition: background 1s ease;
   flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #EAECEF;
+  border-top-right-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  letter-spacing: -0.01em;
 
 }
 
@@ -568,4 +580,171 @@ tr:hover td {
 .buttons input::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
+}
+
+
+
+
+
+
+
+/* Search */
+.sidebar-top {
+  padding: 16px;
+}
+
+.search-box {
+  position: relative;
+  height: 36px;
+  background: #F9F9FA;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.search-box:hover {
+  border-color: #E4E4E7;
+}
+
+.search-box:focus-within {
+  background: #fff;
+  border-color: #D4D4D8;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  color: #A1A1AA;
+}
+
+.search-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-left: 40px;
+  font-size: 13.5px;
+  color: #18181B;
+}
+
+.search-box input::placeholder {
+  color: #A1A1AA;
+}
+
+/* Nav */
+.sidebar-nav {
+  flex: 1;
+  padding: 0 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #71717A;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  user-select: none;
+}
+
+.nav-item svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.nav-item:hover {
+  background: #F9F9FA;
+  color: #18181B;
+}
+
+.nav-item:hover svg {
+  opacity: 1;
+}
+
+
+.divider {
+  height: 1px;
+  background: #EAECEF;
+  margin: 16px 12px;
+}
+
+
+/* Footer - fix del gap sticky que tenías */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid #EAECEF;
+  position: sticky;
+  bottom: 0;
+  background: rgb(250, 210, 250);
+  border-radius: 0 16px 16px 0;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+
+.user-card img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-info strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: #18181B;
+}
+
+.user-info span {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #71717A;
+}
+
+.user-card .dots {
+  width: 16px;
+  height: 16px;
+  color: #A1A1AA;
+}
+
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-settings {
+  padding-left: 12px;
 }
