@@ -373,7 +373,7 @@ header .overview select option {
 
 .aside::-webkit-scrollbar-track {
   background: transparent;
- 
+
 }
 
 .aside::-webkit-scrollbar-thumb {
@@ -439,41 +439,6 @@ header .overview select option {
   height: 100%;
 }
 
-.toggleButton {
-  position: absolute;
-  transform: translateX(125px);
-  top: 50%;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border-style: none;
-  background: rgb(250, 210, 250);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 1s ease;
-  z-index: 99;
-  cursor: pointer;
-}
-
-.toggleButton.collapsed {
-  position: absolute;
-  transform: translateX(0);
-  top: 50%;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border-style: none;
-  background: rgb(250, 210, 250);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-35%);
-}
-
-.toggleButton :hover {
-  cursor: pointer;
-}
 
 .icons {
   display: flex;
@@ -500,12 +465,12 @@ header .overview select option {
   transition: 0.5s all;
   z-index: 99;
   backdrop-filter: blur(10px);
- 
+
 }
 
 .notifications.collapsed {
   width: 0px;
- 
+
 }
 
 p {
