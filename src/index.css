@@ -12,7 +12,7 @@
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f5f5f5;
-  --bg-terciary: #d3d1d1;
+  --bg-terciary: #e6e3e3;
   --tex-primary: #1a1a1a;
   --text-secondary: #555555;
   --acent: #2563eb;
@@ -26,7 +26,7 @@
 .dark {
   --bg-primary: #000;
   --bg-secondary: #2c2b2b;
-  --bg-terciary: #c0bdbd;
+  --bg-terciary: #242323;
   --tex-primary: #ffffff;
   --text-secondary: #ffffff;
   --acent: #2563eb;
@@ -89,7 +89,7 @@ body {
 .main {
   grid-area: main;
   background: var(--bg-secondary);
-  margin-right: 12px;
+  margin-right: 0px;
   color: var(--tex-primary);
   transition: background 1s ease;
   display: flex;
@@ -266,6 +266,7 @@ header .overview select option {
   border-top-right-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   letter-spacing: -0.01em;
+  overflow-y: scroll;
 
 }
 
@@ -372,12 +373,12 @@ header .overview select option {
 
 .aside::-webkit-scrollbar-track {
   background: transparent;
+ 
 }
 
 .aside::-webkit-scrollbar-thumb {
-  background: var(--bg-secondary);
+  background: var(--bg-terciary);
   border-radius: 10px;
-  visibility: hidden;
 }
 
 .sidebar-menu-links {
@@ -490,23 +491,21 @@ header .overview select option {
 
 .notifications {
   border-top-left-radius: 8px;
-  height: 600px;
+  height: calc(100% - 50px);
   width: 150px;
   position: absolute;
   bottom: 0;
-  right: 0;
-  background: color-mix(var(--bg-secondary), transparent 20%);
+  right: 0px;
+  background: color-mix(var(--bg-terciary), transparent 20%);
   transition: 0.5s all;
-  margin-right: 10px;
   z-index: 99;
   backdrop-filter: blur(10px);
+ 
 }
 
 .notifications.collapsed {
   width: 0px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+ 
 }
 
 p {
