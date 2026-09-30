@@ -1,16 +1,18 @@
 import { useApp } from "../contexts/utils";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
-  UserPlus,
-  FileText,
-  Globe,
-  HeartHandshake,
+  School,
   Building2,
   Bell,
   HelpCircle,
   Settings,
   LogOut,
+  Wallet,
+  FileSpreadsheet,
+  BookOpen,
+  ChartPie,
 } from "lucide-react";
 
 import profile from "../assets/profile.jpg";
@@ -31,26 +33,29 @@ export default function Aside() {
         </div>
 
         <nav className="sidebar-nav">
-          <a className="nav-item">
+          <NavLink to={"dashboard"} className="nav-item">
             <LayoutDashboard /> <span>Dashboard</span>
+          </NavLink>
+          <NavLink to={"enrollements"} className="nav-item">
+            <Users /> <span>Enrollements</span>
+          </NavLink>
+          <NavLink className="nav-item">
+            <School /> <span>Classrooms</span>
+          </NavLink>
+          <a className="nav-item">
+            <BookOpen /> <span>Curriculum</span>
           </a>
           <a className="nav-item">
-            <Users /> <span>Employees</span>
+            <FileSpreadsheet /> <span>Grades</span>
           </a>
           <a className="nav-item">
-            <UserPlus /> <span>New Employee</span>
+            <ChartPie /> <span>Analytics</span>
           </a>
           <a className="nav-item">
-            <FileText /> <span>Contracts</span>
+            <Wallet /> <span>Finances</span>
           </a>
           <a className="nav-item">
-            <Globe /> <span>Global Payroll</span>
-          </a>
-          <a className="nav-item">
-            <HeartHandshake /> <span>Benefits</span>
-          </a>
-          <a className="nav-item">
-            <Building2 /> <span>Company Details</span>
+            <Building2 /> <span>School Details</span>
           </a>
         </nav>
       </div>

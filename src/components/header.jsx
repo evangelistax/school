@@ -59,7 +59,7 @@ export default function Header() {
         </div>
         <div className="links-items">
           <Link to="/reports" className="link">
-            Reports
+            Calendar
           </Link>
         </div>
         <div className="links-items">
