@@ -17,7 +17,7 @@ import {
 
 import profile from "../assets/profile.jpg";
 export default function Aside() {
-  const { isOpen } = useApp();
+  const { isOpen, switchs } = useApp();
   const classname = isOpen ? "aside" : "aside collapsed";
   return (
     <div className={classname}>
@@ -39,39 +39,39 @@ export default function Aside() {
           <NavLink to={"enrollements"} className="nav-item">
             <Users /> <span>Enrollements</span>
           </NavLink>
-          <NavLink className="nav-item">
+          <NavLink to={"classrooms"} className="nav-item">
             <School /> <span>Classrooms</span>
           </NavLink>
-          <a className="nav-item">
+          <NavLink to={"curriculum"} className="nav-item">
             <BookOpen /> <span>Curriculum</span>
-          </a>
-          <a className="nav-item">
+          </NavLink>
+          <NavLink to={"grades"} className="nav-item">
             <FileSpreadsheet /> <span>Grades</span>
-          </a>
-          <a className="nav-item">
+          </NavLink>
+          <NavLink to={"analytics"} className="nav-item">
             <ChartPie /> <span>Analytics</span>
-          </a>
-          <a className="nav-item">
+          </NavLink>
+          <NavLink to={"finances"} className="nav-item">
             <Wallet /> <span>Finances</span>
-          </a>
-          <a className="nav-item">
+          </NavLink>
+          <NavLink to={"details"} className="nav-item">
             <Building2 /> <span>School Details</span>
-          </a>
+          </NavLink>
         </nav>
       </div>
 
       <nav className="sidebar-settings">
         <div className="divider" />
 
-        <a className="nav-item">
+        <button className="nav-button" onClick={switchs}>
           <Bell /> <span>Notifications</span>
-        </a>
-        <a className="nav-item">
+        </button>
+        <NavLink to={"help"} className="nav-item">
           <HelpCircle /> <span>Help</span>
-        </a>
-        <a className="nav-item">
+        </NavLink>
+        <NavLink to={"settings"} className="nav-item">
           <Settings /> <span>Settings</span>
-        </a>
+        </NavLink>
         <a className="nav-item">
           <LogOut /> <span>Log Out</span>
         </a>
