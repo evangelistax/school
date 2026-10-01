@@ -89,7 +89,7 @@ body {
 .main {
   grid-area: main;
   background: var(--bg-secondary);
-  margin-right: 0px;
+  margin-right: 12px;
   color: var(--tex-primary);
   transition: background 1s ease;
   display: flex;
@@ -227,7 +227,7 @@ header .overview select option {
   background: var(--bg-secondary);
   justify-content: space-around;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: background 1s ease;
 }
 
@@ -235,7 +235,7 @@ header .overview select option {
   display: flex;
   justify-content: center;
   width: 25%;
-  border-radius: 4px;
+  border-radius: 8px;
   color: var(--tex-primary);
   cursor: pointer;
   transition: none;
@@ -745,4 +745,84 @@ tr:hover td {
 
 .sidebar-settings {
   padding-left: 12px;
+}
+
+.enrollements {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-main {
+  height: 35px;
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-main-actions {
+  display: flex;
+  padding: 2px;
+}
+
+.menu-main-actions svg {
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.menu-main-actions:hover svg {
+  cursor: pointer;
+}
+
+.menu-main-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menu-main-inputs input {
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  color: var(--tex-primary);
+  border: 1px solid var(--border);
+  padding-left: 10px;
+  outline: none;
+  transition: color 1s ease, background-color 1s ease, border 1s ease;
+}
+
+
+.menu-main-inputs select {
+  background: transparent;
+  border: none;
+  color: var(--tex-primary);
+  margin-right: 30px;
+  transition: color 1s ease, background 1s ease;
+  border-radius: 4px;
+}
+
+
+.menu-main-actions button {
+  border-style: none;
+  background: transparent;
+}
+
+
+.content-main {
+  position: relative;
+  height: 90%;
+
+}
+
+
+.table-container-enroll {
+  width: 100%;
+  overflow: auto;
+  max-height: 95%;
+  position: absolute;
+  top: 0;
+  box-shadow: 0px 4px 10px var(--shadow);
+  padding: 0;
+
 }

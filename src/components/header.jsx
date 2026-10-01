@@ -33,7 +33,6 @@ export default function Header() {
         </div>
 
         <div className="buttons">
-          <input type="search" name="search" id="search" />
           <Icons></Icons>
         </div>
       </nav>
