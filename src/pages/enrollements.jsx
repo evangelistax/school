@@ -1,6 +1,9 @@
 import { UserPlus } from "lucide-react";
+import { useApp } from "../contexts/utils";
+import Form from "../components/form";
 
 export default function Enrollements() {
+  const { changeForm } = useApp();
   const teachers = [
     {
       id: 2,
@@ -102,12 +105,59 @@ export default function Enrollements() {
       titulation: "Nurse",
       residence: "Alep",
     },
+    {
+      id: 3,
+      name: "Ana",
+      surename: "Obono",
+      age: 20,
+      sex: "F",
+      phone: "222678943",
+      salary: 35000,
+      titulation: "Nurse",
+      residence: "Alep",
+    },
+
+    {
+      id: 3,
+      name: "Ana",
+      surename: "Obono",
+      age: 20,
+      sex: "F",
+      phone: "222678943",
+      salary: 35000,
+      titulation: "Nurse",
+      residence: "Alep",
+    },
+    {
+      id: 3,
+      name: "Ana",
+      surename: "Obono",
+      age: 20,
+      sex: "F",
+      phone: "222678943",
+      salary: 35000,
+      titulation: "Nurse",
+      residence: "Alep",
+    },
+
+    {
+      id: 3,
+      name: "Ana",
+      surename: "Obono",
+      age: 20,
+      sex: "F",
+      phone: "222678943",
+      salary: 35000,
+      titulation: "Nurse",
+      residence: "Alep",
+    },
   ];
   return (
     <div className="enrollements">
+      <Form></Form>
       <div className="menu-main">
         <div className="menu-main-actions">
-          <button>
+          <button onClick={changeForm}>
             <UserPlus></UserPlus>
           </button>
         </div>
