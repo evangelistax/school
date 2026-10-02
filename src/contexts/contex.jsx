@@ -6,6 +6,11 @@ export const GlobalContex = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isActive, setIsActive] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const [formIsVisible, setFormIsVisible] = useState(false);
+
+  const changeForm = () => {
+    setFormIsVisible(!formIsVisible);
+  };
 
   const changeVisibility = () => {
     setIsVisible(!isVisible);
@@ -32,6 +37,8 @@ export const GlobalContex = ({ children }) => {
         switchs,
         isVisible,
         changeVisibility,
+        formIsVisible,
+        changeForm,
       }}
     >
       {children}

@@ -92,9 +92,6 @@ body {
   margin-right: 12px;
   color: var(--tex-primary);
   transition: background 1s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
 }
 
@@ -527,17 +524,20 @@ tr:hover td {
   border-radius: 12px;
   width: 6px;
   overflow: hidden;
+  width: 4px;
 }
 
 .table::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 12px;
+  width: 4px;
 }
 
 .table::-webkit-scrollbar-thumb {
   background: var(--toolkit-bar);
   transition: background 1s ease;
   border-radius: 12px;
+  width: 4px;
 }
 
 
@@ -730,11 +730,7 @@ tr:hover td {
   color: #71717A;
 }
 
-.user-card .dots {
-  width: 16px;
-  height: 16px;
-  color: #A1A1AA;
-}
+
 
 
 .sidebar-menu {
@@ -752,6 +748,8 @@ tr:hover td {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  position: relative;
 }
 
 .menu-main {
@@ -764,6 +762,7 @@ tr:hover td {
 .menu-main-actions {
   display: flex;
   padding: 2px;
+  margin-left: 4px;
 }
 
 .menu-main-actions svg {
@@ -808,10 +807,25 @@ tr:hover td {
   background: transparent;
 }
 
+.menu-main-actions svg {
+
+  width: 18px;
+  height: 18px;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+
+}
+
+
+.menu-main-actions svg:hover {
+  opacity: 1;
+}
+
+
 
 .content-main {
   position: relative;
-  height: 90%;
+  height: 95%;
 
 }
 
@@ -825,4 +839,25 @@ tr:hover td {
   box-shadow: 0px 4px 10px var(--shadow);
   padding: 0;
 
+}
+
+.form {
+  width: calc(100% - 20px);
+  height: calc(90% - 40px);
+  background: color-mix(var(--bg-terciary), transparent 20%);
+  transition: 0.3s all;
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  visibility: visible;
+  opacity: 1;
+  position: absolute;
+  top: 45px;
+  border-radius: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.form.hidden {
+  visibility: hidden;
+  opacity: 0;
 }
