@@ -1,9 +1,6 @@
 import { UserPlus } from "lucide-react";
-import { useApp } from "../contexts/utils";
-import Form from "../components/form";
 
 export default function Enrollements() {
-  const { changeForm } = useApp();
   const teachers = [
     {
       id: 2,
@@ -154,24 +151,25 @@ export default function Enrollements() {
   ];
   return (
     <div className="enrollements">
-      <Form></Form>
-      <div className="menu-main">
-        <div className="menu-main-actions">
-          <button onClick={changeForm}>
-            <UserPlus></UserPlus>
-          </button>
+      <div className="enrollements-menu">
+        <div className="enrollements-menu-buttons">
+          <UserPlus></UserPlus>
         </div>
-        <div className="menu-main-inputs">
-          <input type="search" name="" id="" />
-
+        <div className="enrollements-menu-inputs">
+          <input type="search" name="" id="" placeholder="" />
           <select name="select" id="select">
-            <option value="">All</option>
             <option value="">PI</option>
             <option value="">PII</option>
+            <option value="">PRIMERO</option>
+            <option value="">SEGUNGO</option>
+            <option value="">TERCERO</option>
+            <option value="">CUARTO</option>
+            <option value="">QUINTO</option>
+            <option value="">SEXTO</option>
           </select>
         </div>
       </div>
-      <div className="content-main">
+      <div className="enrollements-content">
         <div className="table-container">
           <table>
             <thead className="table-header-group">
