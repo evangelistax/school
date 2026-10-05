@@ -813,3 +813,7 @@ tr:hover td {
   opacity: 1;
   cursor: pointer;
 }
+
+.enroll {
+  color: var(--tex-primary);
+}

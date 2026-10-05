@@ -8,6 +8,17 @@ export const GlobalContex = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [formIsVisible, setFormIsVisible] = useState(false);
 
+  const [datos, setDatos] = useState({
+    name: "",
+    surename: "",
+    age: null,
+  });
+
+  const updateLabel = (e) => {
+    const { name, value } = e.target;
+    setDatos({ ...datos, [name]: value });
+  };
+
   const changeForm = () => {
     setFormIsVisible(!formIsVisible);
   };
@@ -39,6 +50,8 @@ export const GlobalContex = ({ children }) => {
         changeVisibility,
         formIsVisible,
         changeForm,
+        datos,
+        updateLabel,
       }}
     >
       {children}

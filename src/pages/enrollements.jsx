@@ -1,4 +1,5 @@
 import { UserPlus } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function Enrollements() {
   const teachers = [
@@ -153,7 +154,9 @@ export default function Enrollements() {
     <div className="enrollements">
       <div className="enrollements-menu">
         <div className="enrollements-menu-buttons">
-          <UserPlus></UserPlus>
+          <NavLink to={"enroll"} className="enroll">
+            <UserPlus></UserPlus>
+          </NavLink>
         </div>
         <div className="enrollements-menu-inputs">
           <input type="search" name="" id="" placeholder="" />
