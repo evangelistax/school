@@ -11,10 +11,12 @@ import Details from "../pages/details";
 import Finances from "../pages/finances";
 import Grades from "../pages/grades";
 import Help from "../pages/help";
+import Enroll from "../pages/enroll";
 export default function Main() {
   return (
     <main className="main">
       <Routes>
+        <Route path="enrollements/enroll" element={<Enroll></Enroll>}></Route>
         <Route path="/help" element={<Help></Help>}></Route>
         <Route path="/curriculum" element={<Curriculum></Curriculum>}></Route>
         <Route path="/grades" element={<Grades></Grades>}></Route>
