@@ -6,21 +6,43 @@ export const GlobalContex = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isActive, setIsActive] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  const [formIsVisible, setFormIsVisible] = useState(false);
 
-  const [datos, setDatos] = useState({
-    name: "",
-    surename: "",
+  const [studentData, setStudentData] = useState({
+    firstname: "",
+    lastname: "",
     age: null,
+    sex: "",
+    phone: "",
+    residence: "",
   });
 
-  const updateLabel = (e) => {
+  const updateStudentLabel = (e) => {
     const { name, value } = e.target;
-    setDatos({ ...datos, [name]: value });
+    setStudentData({ ...studentData, [name]: value });
   };
 
-  const changeForm = () => {
-    setFormIsVisible(!formIsVisible);
+  const [tutorData, setTutorData] = useState({
+    firstname: "",
+    lastname: "",
+    phone: "",
+    residence: "",
+  });
+
+  const updateTutorLabel = (e) => {
+    const { name, value } = e.target;
+    setTutorData({ ...tutorData, [name]: value });
+  };
+
+  const [enrollementData, setEnrollementData] = useState({
+    amount: null,
+    paid: null,
+    dateof: null,
+    observations: "",
+  });
+
+  const updateEnrollementLabel = (e) => {
+    const { name, value } = e.target;
+    setEnrollementData({ ...studentData, [name]: value });
   };
 
   const changeVisibility = () => {
@@ -48,10 +70,12 @@ export const GlobalContex = ({ children }) => {
         switchs,
         isVisible,
         changeVisibility,
-        formIsVisible,
-        changeForm,
-        datos,
-        updateLabel,
+        studentData,
+        updateStudentLabel,
+        tutorData,
+        updateTutorLabel,
+        enrollementData,
+        updateEnrollementLabel,
       }}
     >
       {children}
