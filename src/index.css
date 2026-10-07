@@ -97,6 +97,7 @@ body {
   color: var(--tex-primary);
   transition: background 1s ease;
   position: relative;
+  overflow-y: auto;
 
 }
 
@@ -817,4 +818,181 @@ tr:hover td {
 
 .enroll {
   color: var(--tex-primary);
+}
+
+
+/* Variables para colores y estilos consistentes */
+:root {
+  --primary-color: #4f46e5; /* Índigo moderno */
+  --primary-hover: #4338ca;
+  --bg-color: #f3f4f6;
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #d1d5db;
+  --focus-ring: rgba(79, 70, 229, 0.3);
+  --border-radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Contenedor principal de la página (opcional, para centrar el formulario) */
+body {
+  background-color: var(--bg-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-main);
+}
+
+/* Contenedor del formulario */
+.form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.form-container h1 {
+  text-align: center;
+  color: var(--text-main);
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+/* Secciones del formulario (Datos estudiante, tutor, etc.) */
+.student-data,
+.teacher-data,
+.enrollement-data {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.enrollement-data {
+  border-bottom: none; /* Quitamos el borde en la última sección */
+}
+
+.form-container h2 {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+/* Opcional: línea decorativa al lado del h2 */
+.form-container h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-left: 15px;
+}
+
+/* Diseño de grid para los inputs (2 columnas en escritorio) */
+.student-data,
+.teacher-data,
+.enrollement-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* El h2 debe ocupar las dos columnas */
+.student-data h2,
+.teacher-data h2,
+.enrollement-data h2 {
+  grid-column: 1 / -1;
+}
+
+/* Estilos de los grupos de input */
+.student-data > div,
+.teacher-data > div,
+.enrollement-data > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos de las etiquetas (labels) */
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+/* Estilos de los inputs */
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: #fff;
+  transition: var(--transition);
+  color: var(--text-main);
+}
+
+/* Estado Focus de los inputs */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Placeholder (si decides añadirlo luego) */
+input::placeholder {
+  color: #9ca3af;
+}
+
+/* Estilos del botón de envío */
+button[type="submit"] {
+  grid-column: 1 / -1; /* Ocupa todo el ancho en el grid si lo pones dentro de un contenedor grid */
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* --- Diseño Responsivo (Móviles) --- */
+@media (max-width: 640px) {
+  .form-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  /* Cambiar a 1 columna en pantallas pequeñas */
+  .student-data,
+  .teacher-data,
+  .enrollement-data {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }

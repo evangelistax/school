@@ -16,7 +16,7 @@ export default function Enroll() {
     );
   }
   return (
-    <>
+    <div className="form-container">
       <h1>formulario de registro</h1>
       <form onSubmit={submit}>
         <div className="student-data">
@@ -180,6 +180,6 @@ export default function Enroll() {
         </div>
         <button type="submit">enviar</button>
       </form>
-    </>
+    </div>
   );
 }
