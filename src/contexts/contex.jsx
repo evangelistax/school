@@ -7,6 +7,12 @@ export const GlobalContex = ({ children }) => {
   const [isActive, setIsActive] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // Funciones para avanzar y retroceder
+  const nextStep = () => setCurrentStep((prev) => prev + 1);
+  const prevStep = () => setCurrentStep((prev) => prev - 1);
+
   const [studentData, setStudentData] = useState({
     firstname: "",
     lastname: "",
@@ -76,6 +82,9 @@ export const GlobalContex = ({ children }) => {
         updateTutorLabel,
         enrollementData,
         updateEnrollementLabel,
+        currentStep,
+        nextStep,
+        prevStep,
       }}
     >
       {children}

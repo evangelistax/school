@@ -756,7 +756,7 @@ tr:hover td {
   padding-right: 20px;
   width: 100%;
   height: 30px;
-  background: var(--bg-primary);
+  background: transparent;
 }
 
 
@@ -821,10 +821,14 @@ tr:hover td {
 }
 
 
-/* Variables para colores y estilos consistentes */
+
+/* Variables */
 :root {
-  --primary-color: #4f46e5; /* Índigo moderno */
+  --primary-color: rgb(250, 210, 250);
+  ;
   --primary-hover: #4338ca;
+  --secondary-color: #ffffff;
+  --secondary-hover: #f3f4f6;
   --bg-color: #f3f4f6;
   --card-bg: #ffffff;
   --text-main: #1f2937;
@@ -835,49 +839,37 @@ tr:hover td {
   --transition: all 0.2s ease-in-out;
 }
 
-/* Contenedor principal de la página (opcional, para centrar el formulario) */
-body {
-  background-color: var(--bg-color);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: var(--text-main);
-}
 
-/* Contenedor del formulario */
 .form-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
+  margin-top: 0;
+  width: 100%;
+  padding: 10px 10px;
   background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* Para posicionar el indicador de paso */
 }
 
-.form-container h1 {
+/* Indicador de paso en la esquina superior */
+.step-indicator {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background-color: var(--bg-color);
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.form-container h3 {
   text-align: center;
   color: var(--text-main);
-  font-size: 2rem;
-  margin-bottom: 30px;
-  text-transform: capitalize;
-  font-weight: 700;
+  margin-bottom: 10px;
 }
 
-/* Secciones del formulario (Datos estudiante, tutor, etc.) */
-.student-data,
-.teacher-data,
-.enrollement-data {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.enrollement-data {
-  border-bottom: none; /* Quitamos el borde en la última sección */
-}
-
-.form-container h2 {
-  color: var(--primary-color);
+.form-step h2 {
   font-size: 1.25rem;
   margin-bottom: 20px;
   font-weight: 600;
@@ -885,8 +877,7 @@ body {
   align-items: center;
 }
 
-/* Opcional: línea decorativa al lado del h2 */
-.form-container h2::after {
+.form-step h2::after {
   content: "";
   flex: 1;
   height: 1px;
@@ -894,31 +885,19 @@ body {
   margin-left: 15px;
 }
 
-/* Diseño de grid para los inputs (2 columnas en escritorio) */
-.student-data,
-.teacher-data,
-.enrollement-data {
+/* Layout de cuadrícula reutilizable para cada paso */
+.grid-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-bottom: 30px;
 }
 
-/* El h2 debe ocupar las dos columnas */
-.student-data h2,
-.teacher-data h2,
-.enrollement-data h2 {
-  grid-column: 1 / -1;
-}
-
-/* Estilos de los grupos de input */
-.student-data > div,
-.teacher-data > div,
-.enrollement-data > div {
+.grid-layout>div {
   display: flex;
   flex-direction: column;
 }
 
-/* Estilos de las etiquetas (labels) */
 label {
   font-size: 0.875rem;
   font-weight: 500;
@@ -926,7 +905,6 @@ label {
   margin-bottom: 6px;
 }
 
-/* Estilos de los inputs */
 input[type="text"],
 input[type="number"],
 input[type="date"] {
@@ -934,65 +912,92 @@ input[type="date"] {
   font-size: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: #fff;
   transition: var(--transition);
-  color: var(--text-main);
 }
 
-/* Estado Focus de los inputs */
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px var(--focus-ring);
+  box-shadow: 0 0 0 3px rgb(250, 210, 250);
 }
 
-/* Placeholder (si decides añadirlo luego) */
-input::placeholder {
-  color: #9ca3af;
+/* --- ESTILOS DE LOS BOTONES Y NAVEGACIÓN --- */
+.form-navigation {
+  display: flex;
+  justify-content: flex-end;
+  /* Alinea los botones a la derecha */
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
 }
 
-/* Estilos del botón de envío */
-button[type="submit"] {
-  grid-column: 1 / -1; /* Ocupa todo el ancho en el grid si lo pones dentro de un contenedor grid */
-  width: 100%;
-  padding: 12px 20px;
-  background-color: var(--primary-color);
-  color: white;
+/* Si hay botón "Anterior", separa los botones a los extremos */
+.form-navigation:has(.btn-secondary) {
+  justify-content: space-between;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 24px;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
   transition: var(--transition);
-  margin-top: 10px;
 }
 
-button[type="submit"]:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
-  transform: translateY(-1px);
+/* Botón Siguiente / Enviar */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
 }
 
-button[type="submit"]:active {
-  transform: translateY(0);
+.btn-primary:hover {
+  background-color: rgb(253, 194, 253);
+  ;
+}
+
+/* Botón Anterior */
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+  border-color: #9ca3af;
 }
 
 /* --- Diseño Responsivo (Móviles) --- */
 @media (max-width: 640px) {
   .form-container {
-    margin: 20px;
+    margin: 15px;
     padding: 20px;
   }
 
-  /* Cambiar a 1 columna en pantallas pequeñas */
-  .student-data,
-  .teacher-data,
-  .enrollement-data {
+  .step-indicator {
+    position: static;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .grid-layout {
     grid-template-columns: 1fr;
+    /* 1 sola columna en móviles */
     gap: 15px;
+  }
+
+  .form-navigation {
+    flex-direction: column-reverse;
+    /* En móviles el botón principal queda arriba del secundario */
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
   }
 }
