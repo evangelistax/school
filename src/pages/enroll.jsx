@@ -93,7 +93,6 @@ export default function Enroll() {
                   onChange={updateStudentLabel}
                 ></input>
               </div>
-              {/* ... resto de inputs de estudiante ... */}
             </div>
           </div>
         )}

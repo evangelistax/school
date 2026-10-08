@@ -6,6 +6,7 @@ export const GlobalContex = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isActive, setIsActive] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const [data, setData] = useState([]);
 
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -85,6 +86,8 @@ export const GlobalContex = ({ children }) => {
         currentStep,
         nextStep,
         prevStep,
+        data,
+        setData,
       }}
     >
       {children}

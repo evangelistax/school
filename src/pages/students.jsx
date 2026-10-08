@@ -1,39 +1,20 @@
+import { useEffect } from "react";
+import { useState } from "react";
+
 export default function Students() {
-  const students = [
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      grade: "4º",
-      sex: "M",
-      phone: "555408127",
-
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      grade: "3º",
-      sex: "M",
-      phone: "222567843",
-
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      grade: "2º",
-      sex: "F",
-      phone: "222678943",
-
-      residence: "Alep",
-    },
-  ];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function getStudents() {
+      try {
+        const res = await fetch("http://localhost:3000/students");
+        const result = await res.json();
+        setData(result);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    getStudents();
+  }, []);
   return (
     <div className="table-container">
       <table>
@@ -43,21 +24,22 @@ export default function Students() {
             <th>Name</th>
             <th>Surename</th>
             <th>Age</th>
-            <th>Grade</th>
+            <th>Phone</th>
             <th>Sex</th>
             <th>Residence</th>
           </tr>
         </thead>
+
         <tbody id="cuerpo-tabla">
-          {students.map((s) => (
+          {data.map((s) => (
             <tr>
-              <td>{s.id}</td>
-              <td>{s.name}</td>
-              <td>{s.surename}</td>
-              <td>{s.age}</td>
-              <td>{s.grade}</td>
-              <td>{s.sex}</td>
-              <td>{s.residence}</td>
+              <td>{s.StudentID}</td>
+              <td>{s.FirstName}</td>
+              <td>{s.LastName}</td>
+              <td>{s.Age}</td>
+              <td>{s.Phone}</td>
+              <td>{s.Sex}</td>
+              <td>{s.Residence}</td>
             </tr>
           ))}
         </tbody>
