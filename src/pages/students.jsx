@@ -22,7 +22,7 @@ export default function Students() {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Surename</th>
+            <th>Surname</th>
             <th>Age</th>
             <th>Phone</th>
             <th>Sex</th>

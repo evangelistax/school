@@ -1,4 +1,5 @@
 import { useApp } from "../contexts/utils";
+
 export default function Enroll() {
   const {
     studentData,
@@ -12,9 +13,33 @@ export default function Enroll() {
     prevStep,
   } = useApp();
 
-  const submit = (e) => {
+  // Se transformó la función submit en asíncrona (async) para manejar fetch correctamente
+  const submit = async (e) => {
     e.preventDefault();
-    alert("formulario enviado");
+    const { FirstName, LastName, Age, Sex, Phone, Residence } = studentData;
+    const data = { FirstName, LastName, Age, Sex, Phone, Residence };
+
+    try {
+      // Se eliminó la función interna anidada para que el try/catch capture los errores correctamente
+      const res = await fetch("http://localhost:3000/students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Añadido para que el servidor entienda el JSON
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error en el servidor: ${res.status}`);
+      }
+
+      const result = await res.json(); // Añadido await para resolver la promesa del JSON
+
+      alert("Datos enviados con éxito", result);
+      window.location.href = "http://localhost:5173/";
+    } catch (error) {
+      alert(`Ocurrió un error: ${error.message}`);
+    }
   };
 
   return (
@@ -24,7 +49,7 @@ export default function Enroll() {
       <h3>Formulario de Matrícula</h3>
 
       <form onSubmit={submit}>
-        {/* 2. Renderizado Condicional: Paso 1 */}
+        {/* Paso 1: Datos del estudiante */}
         {currentStep === 1 && (
           <div className="form-step">
             <h2>Datos del estudiante</h2>
@@ -34,10 +59,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="student-name"
-                  name="firstname"
+                  name="FirstName"
                   value={studentData.FirstName}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -45,20 +70,20 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="student-surename"
-                  name="surename"
+                  name="LastName"
                   value={studentData.LastName}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
               <div>
                 <label htmlFor="student-age">Age</label>
                 <input
                   type="number"
                   id="student-age"
-                  name="age"
+                  name="Age"
                   value={studentData.Age}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -66,10 +91,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="student-sex"
-                  name="sex"
+                  name="Sex"
                   value={studentData.Sex}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -77,10 +102,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="student-phone"
-                  name="phone"
+                  name="Phone"
                   value={studentData.Phone}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -88,16 +113,16 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="student-residence"
-                  name="residence"
+                  name="Residence"
                   value={studentData.Residence}
                   onChange={updateStudentLabel}
-                ></input>
+                />
               </div>
             </div>
           </div>
         )}
 
-        {/* 2. Renderizado Condicional: Paso 2 */}
+        {/* Paso 2: Datos del Tutor */}
         {currentStep === 2 && (
           <div className="form-step">
             <h2>Datos del Tutor</h2>
@@ -107,10 +132,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-name"
-                  name="firstname"
+                  name="FirstName" // Corregido: "Firstname" -> "FirstName" para coincidir con el estado
                   value={tutorData.FirstName}
                   onChange={updateTutorLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -118,10 +143,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-surename"
-                  name="surename"
+                  name="LastName"
                   value={tutorData.LastName}
                   onChange={updateTutorLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -129,10 +154,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-phone"
-                  name="phone"
+                  name="Phone"
                   value={tutorData.Phone}
                   onChange={updateTutorLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -140,16 +165,16 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-residence"
-                  name="residence"
+                  name="Residence"
                   value={tutorData.Residence}
                   onChange={updateTutorLabel}
-                ></input>
+                />
               </div>
             </div>
           </div>
         )}
 
-        {/* 2. Renderizado Condicional: Paso 3 */}
+        {/* Paso 3: Detalles de Matrícula */}
         {currentStep === 3 && (
           <div className="form-step">
             <h2>Detalles de Matrícula</h2>
@@ -159,10 +184,10 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="enrollement-amount"
-                  name="amount"
+                  name="Amount"
                   value={enrollementData.Amount}
                   onChange={updateEnrollementLabel}
-                ></input>
+                />
               </div>
 
               <div>
@@ -170,38 +195,38 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="enrollement-paid"
-                  name="paid"
+                  name="Paid"
                   value={enrollementData.Paid}
                   onChange={updateEnrollementLabel}
-                ></input>
+                />
               </div>
 
               <div>
-                <label htmlFor="dateof">Date</label>
+                <label htmlFor="enrollement-date">Date</label>
                 <input
                   type="date"
-                  id="dateof"
-                  name="dateof"
+                  id="enrollement-date"
+                  name="DateOf" // Corregido: "dateof" -> "DateOf" para coincidir con la propiedad del objeto
                   value={enrollementData.DateOf}
                   onChange={updateEnrollementLabel}
-                ></input>
+                />
               </div>
 
               <div>
-                <label htmlFor="enrollement-observation">Observatios</label>
+                <label htmlFor="enrollement-observation">Observations</label>
                 <input
                   type="text"
                   id="enrollement-observation"
-                  name="observations"
-                  value={enrollementData.Age}
+                  name="Observations"
+                  value={enrollementData.Observations} // Corregido: .Age -> .Observations
                   onChange={updateEnrollementLabel}
-                ></input>
+                />
               </div>
             </div>
           </div>
         )}
 
-        {/* 3. Navegación de botones dinámicos */}
+        {/* Navegación de botones */}
         <div className="form-navigation">
           {currentStep > 1 && (
             <button type="button" className="btn-secondary" onClick={prevStep}>

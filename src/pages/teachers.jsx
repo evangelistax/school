@@ -1,204 +1,18 @@
+import { useEffect, useState } from "react";
+
 export default function Teachers() {
-  const teachers = [
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-  ];
+  const [teachers, setTeachers] = useState([]);
+
+  useEffect(() => {
+    const getTeachers = async () => {
+      const res = await fetch("http://localhost:3000/teachers");
+      const result = await res.json();
+      setTeachers(result);
+    };
+
+    getTeachers();
+  }, []);
+
   return (
     <div className="table-container">
       <table>
@@ -206,7 +20,7 @@ export default function Teachers() {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Surename</th>
+            <th>Surname</th>
             <th>Age</th>
             <th>Sex</th>
             <th>Phone</th>
@@ -218,15 +32,15 @@ export default function Teachers() {
         <tbody>
           {teachers.map((t) => (
             <tr>
-              <td>{t.id}</td>
-              <td>{t.name}</td>
-              <td>{t.surename}</td>
-              <td className="number">{t.age}</td>
-              <td>{t.sex}</td>
-              <td className="number">{t.phone}</td>
-              <td className="number">{t.salary} Fcfa</td>
-              <td>{t.titulation}</td>
-              <td>{t.residence}</td>
+              <td>{t.ProfessorID}</td>
+              <td>{t.FirstName}</td>
+              <td>{t.LastName}</td>
+              <td className="number">{t.Age}</td>
+              <td>{t.Sex}</td>
+              <td className="number">{t.Phone}</td>
+              <td className="number">{t.Salary} Fcfa</td>
+              <td>{t.Titulation}</td>
+              <td>{t.Residence}</td>
             </tr>
           ))}
         </tbody>

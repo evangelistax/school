@@ -1,6 +1,7 @@
 import { useApp } from "../contexts/utils";
 import { NavLink } from "react-router-dom";
 import {
+  User,
   LayoutDashboard,
   Users,
   School,
@@ -38,6 +39,9 @@ export default function Aside() {
           </NavLink>
           <NavLink to={"enrollements"} className="nav-item">
             <Users /> <span>Enrollements</span>
+          </NavLink>
+          <NavLink to={"tutors"} className="nav-item">
+            <User /> <span>Tutors</span>
           </NavLink>
           <NavLink to={"classrooms"} className="nav-item">
             <School /> <span>Classrooms</span>
