@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { contex } from "./utils";
 
+// variables del estado global
 export const GlobalContex = ({ children }) => {
   const [oscuro, setOscuro] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
@@ -15,12 +16,12 @@ export const GlobalContex = ({ children }) => {
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const [studentData, setStudentData] = useState({
-    firstname: "",
-    lastname: "",
-    age: null,
-    sex: "",
-    phone: "",
-    residence: "",
+    FirstName: "",
+    LastName: "",
+    Age: null,
+    Sex: "",
+    Phone: "",
+    Residence: "",
   });
 
   const updateStudentLabel = (e) => {
@@ -29,10 +30,10 @@ export const GlobalContex = ({ children }) => {
   };
 
   const [tutorData, setTutorData] = useState({
-    firstname: "",
-    lastname: "",
-    phone: "",
-    residence: "",
+    FirstName: "",
+    LastName: "",
+    Phone: "",
+    Residence: "",
   });
 
   const updateTutorLabel = (e) => {
@@ -41,10 +42,10 @@ export const GlobalContex = ({ children }) => {
   };
 
   const [enrollementData, setEnrollementData] = useState({
-    amount: null,
-    paid: null,
-    dateof: null,
-    observations: "",
+    Amount: null,
+    Paid: null,
+    DateOf: null,
+    Observations: "",
   });
 
   const updateEnrollementLabel = (e) => {

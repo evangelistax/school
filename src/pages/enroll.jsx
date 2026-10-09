@@ -14,7 +14,7 @@ export default function Enroll() {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log("Formulario enviado");
+    alert("formulario enviado");
   };
 
   return (
@@ -35,7 +35,7 @@ export default function Enroll() {
                   type="text"
                   id="student-name"
                   name="firstname"
-                  value={studentData.firstname}
+                  value={studentData.FirstName}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -46,7 +46,7 @@ export default function Enroll() {
                   type="text"
                   id="student-surename"
                   name="surename"
-                  value={studentData.surename}
+                  value={studentData.LastName}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -56,7 +56,7 @@ export default function Enroll() {
                   type="number"
                   id="student-age"
                   name="age"
-                  value={studentData.age}
+                  value={studentData.Age}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -67,7 +67,7 @@ export default function Enroll() {
                   type="text"
                   id="student-sex"
                   name="sex"
-                  value={studentData.sex}
+                  value={studentData.Sex}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -78,7 +78,7 @@ export default function Enroll() {
                   type="text"
                   id="student-phone"
                   name="phone"
-                  value={studentData.phone}
+                  value={studentData.Phone}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -89,7 +89,7 @@ export default function Enroll() {
                   type="text"
                   id="student-residence"
                   name="residence"
-                  value={studentData.residence}
+                  value={studentData.Residence}
                   onChange={updateStudentLabel}
                 ></input>
               </div>
@@ -108,7 +108,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-name"
                   name="firstname"
-                  value={tutorData.firstname}
+                  value={tutorData.FirstName}
                   onChange={updateTutorLabel}
                 ></input>
               </div>
@@ -119,7 +119,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-surename"
                   name="surename"
-                  value={tutorData.surename}
+                  value={tutorData.LastName}
                   onChange={updateTutorLabel}
                 ></input>
               </div>
@@ -130,7 +130,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-phone"
                   name="phone"
-                  value={tutorData.phone}
+                  value={tutorData.Phone}
                   onChange={updateTutorLabel}
                 ></input>
               </div>
@@ -141,7 +141,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-residence"
                   name="residence"
-                  value={tutorData.residence}
+                  value={tutorData.Residence}
                   onChange={updateTutorLabel}
                 ></input>
               </div>
@@ -160,7 +160,7 @@ export default function Enroll() {
                   type="text"
                   id="enrollement-amount"
                   name="amount"
-                  value={enrollementData.amount}
+                  value={enrollementData.Amount}
                   onChange={updateEnrollementLabel}
                 ></input>
               </div>
@@ -171,7 +171,7 @@ export default function Enroll() {
                   type="text"
                   id="enrollement-paid"
                   name="paid"
-                  value={enrollementData.paid}
+                  value={enrollementData.Paid}
                   onChange={updateEnrollementLabel}
                 ></input>
               </div>
@@ -182,7 +182,7 @@ export default function Enroll() {
                   type="date"
                   id="dateof"
                   name="dateof"
-                  value={enrollementData.dateof}
+                  value={enrollementData.DateOf}
                   onChange={updateEnrollementLabel}
                 ></input>
               </div>
@@ -193,7 +193,7 @@ export default function Enroll() {
                   type="text"
                   id="enrollement-observation"
                   name="observations"
-                  value={enrollementData.age}
+                  value={enrollementData.Age}
                   onChange={updateEnrollementLabel}
                 ></input>
               </div>

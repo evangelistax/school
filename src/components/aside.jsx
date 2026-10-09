@@ -33,7 +33,7 @@ export default function Aside() {
         </div>
 
         <nav className="sidebar-nav">
-          <NavLink to={"dashboard"} className="nav-item">
+          <NavLink to={"analytics"} className="nav-item">
             <LayoutDashboard /> <span>Dashboard</span>
           </NavLink>
           <NavLink to={"enrollements"} className="nav-item">

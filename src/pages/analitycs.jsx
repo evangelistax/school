@@ -1,5 +1,6 @@
 export default function Analytics() {
-  return (
+  {
+    /*
     <div className="analytics">
       <div className="cards-container">
         <div className="cards-items"></div>
@@ -16,5 +17,7 @@ export default function Analytics() {
         <div className="stats-items"></div>
       </div>
     </div>
-  );
+    */
+  }
+  return <p>analiticas</p>;
 }
