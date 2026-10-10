@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Students() {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   useEffect(() => {
     async function getStudents() {
@@ -32,7 +34,7 @@ export default function Students() {
 
         <tbody id="cuerpo-tabla">
           {data.map((s) => (
-            <tr>
+            <tr onClick={() => navigate(`/student/${s.StudentID}`)}>
               <td>{s.StudentID}</td>
               <td>{s.FirstName}</td>
               <td>{s.LastName}</td>
