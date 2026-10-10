@@ -17,7 +17,14 @@ export default function Enroll() {
   const submit = async (e) => {
     e.preventDefault();
     const { FirstName, LastName, Age, Sex, Phone, Residence } = studentData;
-    const data = { FirstName, LastName, Age, Sex, Phone, Residence };
+    const data = {
+      FirstName,
+      LastName,
+      Age: parseInt(Age),
+      Sex,
+      Phone,
+      Residence,
+    };
 
     try {
       // Se eliminó la función interna anidada para que el try/catch capture los errores correctamente
@@ -30,12 +37,15 @@ export default function Enroll() {
       });
 
       if (!res.ok) {
-        throw new Error(`Error en el servidor: ${res.status}`);
+        const error = await res.json();
+        throw new Error(
+          `Error en el servidor: ${error.message}, ${res.status}`,
+        );
       }
 
       const result = await res.json(); // Añadido await para resolver la promesa del JSON
 
-      alert("Datos enviados con éxito", result);
+      alert("Datos enviados con éxito", result.message);
       window.location.href = "http://localhost:5173/";
     } catch (error) {
       alert(`Ocurrió un error: ${error.message}`);
