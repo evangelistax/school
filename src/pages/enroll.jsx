@@ -1,6 +1,8 @@
 import { useApp } from "../contexts/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function Enroll() {
+  const navigate = useNavigate();
   const {
     studentData,
     updateStudentLabel,
@@ -13,52 +15,65 @@ export default function Enroll() {
     prevStep,
   } = useApp();
 
-  // Se transformó la función submit en asíncrona (async) para manejar fetch correctamente
-  const submit = async (e) => {
+  // Función reutilizable para peticiones HTTP
+  const sendRequest = async (url, data) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const error = await res
+        .json()
+        .catch(() => ({ message: "Error desconocido" }));
+      throw new Error(`[${res.status}] ${error.message || res.statusText}`);
+    }
+    return res.json();
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { FirstName, LastName, Age, Sex, Phone, Residence } = studentData;
-    const data = {
-      FirstName,
-      LastName,
-      Age: parseInt(Age),
-      Sex,
-      Phone,
-      Residence,
-    };
+
+    // Evita enviar si el usuario presiona Enter de casualidad en pasos previos
+    if (currentStep < 3) return;
 
     try {
-      // Se eliminó la función interna anidada para que el try/catch capture los errores correctamente
-      const res = await fetch("http://localhost:3000/students", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Añadido para que el servidor entienda el JSON
+      // 1. Preparar y enviar datos del estudiante
+      const studentPayload = {
+        ...studentData,
+        Age: parseInt(studentData.Age, 10) || 0,
+      };
+      const studentResult = await sendRequest(
+        "http://localhost:3000/students",
+        studentPayload,
+      );
+
+      // 2. Preparar y enviar datos de matrícula (Asumiendo que necesitas relacionar el ID del estudiante creado)
+      const enrollPayload = {
+        studentId: studentResult.id, // O la propiedad que devuelva tu backend
+        tutor: tutorData,
+        enrollment: {
+          ...enrollementData,
+          Amount: parseFloat(enrollementData.Amount) || 0,
+          Paid: parseFloat(enrollementData.Paid) || 0,
         },
-        body: JSON.stringify(data),
-      });
+      };
+      await sendRequest("http://localhost:3000/enrollments", enrollPayload);
 
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(
-          `Error en el servidor: ${error.message}, ${res.status}`,
-        );
-      }
-
-      const result = await res.json(); // Añadido await para resolver la promesa del JSON
-
-      alert("Datos enviados con éxito", result.message);
-      window.location.href = "http://localhost:5173/";
+      alert("Matrícula completada con éxito");
+      navigate("/");
     } catch (error) {
-      alert(`Ocurrió un error: ${error.message}`);
+      alert(`Ocurrió un error en el registro: ${error.message}`);
     }
   };
 
   return (
     <div className="form-container">
       <div className="step-indicator">Paso {currentStep} de 3</div>
-
       <h3>Formulario de Matrícula</h3>
 
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         {/* Paso 1: Datos del estudiante */}
         {currentStep === 1 && (
           <div className="form-step">
@@ -70,19 +85,20 @@ export default function Enroll() {
                   type="text"
                   id="student-name"
                   name="FirstName"
-                  value={studentData.FirstName}
+                  value={studentData.FirstName || ""}
                   onChange={updateStudentLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="student-surename">Last Name</label>
                 <input
                   type="text"
                   id="student-surename"
                   name="LastName"
-                  value={studentData.LastName}
+                  value={studentData.LastName || ""}
                   onChange={updateStudentLabel}
+                  required
                 />
               </div>
               <div>
@@ -91,40 +107,38 @@ export default function Enroll() {
                   type="number"
                   id="student-age"
                   name="Age"
-                  value={studentData.Age}
+                  value={studentData.Age || ""}
                   onChange={updateStudentLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="student-sex">Sex</label>
                 <input
                   type="text"
                   id="student-sex"
                   name="Sex"
-                  value={studentData.Sex}
+                  value={studentData.Sex || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
-
               <div>
                 <label htmlFor="student-phone">Phone</label>
                 <input
                   type="text"
                   id="student-phone"
                   name="Phone"
-                  value={studentData.Phone}
+                  value={studentData.Phone || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
-
               <div>
                 <label htmlFor="student-residence">Residence</label>
                 <input
                   type="text"
                   id="student-residence"
                   name="Residence"
-                  value={studentData.Residence}
+                  value={studentData.Residence || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -142,41 +156,40 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-name"
-                  name="FirstName" // Corregido: "Firstname" -> "FirstName" para coincidir con el estado
-                  value={tutorData.FirstName}
+                  name="FirstName"
+                  value={tutorData.FirstName || ""}
                   onChange={updateTutorLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="teacher-surename">Last Name</label>
                 <input
                   type="text"
                   id="teacher-surename"
                   name="LastName"
-                  value={tutorData.LastName}
+                  value={tutorData.LastName || ""}
                   onChange={updateTutorLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="teacher-phone">Phone</label>
                 <input
                   type="text"
                   id="teacher-phone"
                   name="Phone"
-                  value={tutorData.Phone}
+                  value={tutorData.Phone || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
-
               <div>
                 <label htmlFor="teacher-residence">Residence</label>
                 <input
                   type="text"
                   id="teacher-residence"
                   name="Residence"
-                  value={tutorData.Residence}
+                  value={tutorData.Residence || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
@@ -192,43 +205,42 @@ export default function Enroll() {
               <div>
                 <label htmlFor="enrollement-amount">Amount</label>
                 <input
-                  type="text"
+                  type="number"
                   id="enrollement-amount"
                   name="Amount"
-                  value={enrollementData.Amount}
+                  value={enrollementData.Amount || ""}
                   onChange={updateEnrollementLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="enrollement-paid">Paid</label>
                 <input
-                  type="text"
+                  type="number"
                   id="enrollement-paid"
                   name="Paid"
-                  value={enrollementData.Paid}
+                  value={enrollementData.Paid || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
-
               <div>
                 <label htmlFor="enrollement-date">Date</label>
                 <input
                   type="date"
                   id="enrollement-date"
-                  name="DateOf" // Corregido: "dateof" -> "DateOf" para coincidir con la propiedad del objeto
-                  value={enrollementData.DateOf}
+                  name="DateOf"
+                  value={enrollementData.DateOf || ""}
                   onChange={updateEnrollementLabel}
+                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="enrollement-observation">Observations</label>
                 <input
                   type="text"
                   id="enrollement-observation"
                   name="Observations"
-                  value={enrollementData.Observations} // Corregido: .Age -> .Observations
+                  value={enrollementData.Observations || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
@@ -236,24 +248,23 @@ export default function Enroll() {
           </div>
         )}
 
-        {/* Navegación de botones */}
-        <div className="form-navigation">
+        {/* Botones de Navegación del Formulario */}
+        <div
+          className="form-actions"
+          style={{ marginTop: "20px", display: "flex", gap: "10px" }}
+        >
           {currentStep > 1 && (
-            <button type="button" className="btn-secondary" onClick={prevStep}>
+            <button type="button" onClick={prevStep}>
               Anterior
             </button>
           )}
 
-          {currentStep < 3 && (
-            <button type="button" className="btn-primary" onClick={nextStep}>
+          {currentStep < 3 ? (
+            <button type="button" onClick={nextStep}>
               Siguiente
             </button>
-          )}
-
-          {currentStep === 3 && (
-            <button type="submit" className="btn-primary">
-              Enviar
-            </button>
+          ) : (
+            <button type="submit">Finalizar Matrícula</button>
           )}
         </div>
       </form>

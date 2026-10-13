@@ -1,17 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Teachers() {
-  const [teachers, setTeachers] = useState([]);
+export default function Students() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getTeachers = async () => {
-      const res = await fetch("http://localhost:3000/teachers");
-      const result = await res.json();
-      setTeachers(result);
-    };
+    const getStudents = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/teachers");
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message);
+        }
 
-    getTeachers();
+        const result = await res.json();
+        setData(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getStudents();
   }, []);
+
+  if (isLoading) return <p>cargando datos...</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
 
   return (
     <div className="table-container">
@@ -30,15 +45,15 @@ export default function Teachers() {
           </tr>
         </thead>
         <tbody>
-          {teachers.map((t) => (
-            <tr>
+          {data.map((t) => (
+            <tr key={t.StudentID}>
               <td>{t.ProfessorID}</td>
               <td>{t.FirstName}</td>
               <td>{t.LastName}</td>
               <td className="number">{t.Age}</td>
               <td>{t.Sex}</td>
               <td className="number">{t.Phone}</td>
-              <td className="number">{t.Salary} Fcfa</td>
+              <td>{t.Salary}</td>
               <td>{t.Titulation}</td>
               <td>{t.Residence}</td>
             </tr>

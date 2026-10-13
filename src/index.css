@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-
 /*Definicion de los colores*/
 * {
   box-sizing: border-box;
@@ -756,7 +753,7 @@ tr:hover td {
   padding-right: 20px;
   width: 100%;
   height: 30px;
-  background: transparent;
+  background: var(--bg-primary);
 }
 
 

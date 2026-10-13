@@ -1,155 +1,63 @@
 import { UserPlus } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Enrollements() {
-  const teachers = [
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 1,
-      name: "Juan",
-      surename: "Esono",
-      age: 23,
-      sex: "M",
-      phone: "555408127",
-      salary: 35000,
-      titulation: "Developper",
-      residence: "Bikuy",
-    },
-    {
-      id: 2,
-      name: "Miguel",
-      surename: "Enguru",
-      age: 28,
-      sex: "M",
-      phone: "222567843",
-      salary: 35000,
-      titulation: "Master",
-      residence: "Montecarlos",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [courses, setCourses] = useState([]);
 
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
+  const [err, setErr] = useState(null);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
+  useEffect(() => {
+    const getCourses = async () => {
+      const res = await fetch("http://localhost:3000/courses");
+      if (!res.ok) {
+        const error = res.json();
+        setError(error);
+        throw new Error(error.message);
+      }
 
-    {
-      id: 3,
-      name: "Ana",
-      surename: "Obono",
-      age: 20,
-      sex: "F",
-      phone: "222678943",
-      salary: 35000,
-      titulation: "Nurse",
-      residence: "Alep",
-    },
-  ];
+      const result = await res.json();
+      setCourses(result);
+    };
+
+    try {
+      getCourses();
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const getEnrollements = async () => {
+      const res = await fetch("http://localhost:3000/enrollements");
+      if (!res.ok) {
+        const error = res.json();
+        setErr(error);
+        throw new Error(error.message);
+      }
+
+      const result = await res.json();
+      setData(result);
+    };
+
+    try {
+      getEnrollements();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
+  if (isLoading) return <p>cargando...</p>;
+
+  if (err) return <p>ERROR: {err.message}</p>;
+
   return (
     <div className="enrollements">
       <div className="enrollements-menu">
@@ -161,14 +69,12 @@ export default function Enrollements() {
         <div className="enrollements-menu-inputs">
           <input type="search" name="" id="" placeholder="" />
           <select name="select" id="select">
-            <option value="">PI</option>
-            <option value="">PII</option>
-            <option value="">PRIMERO</option>
-            <option value="">SEGUNGO</option>
-            <option value="">TERCERO</option>
-            <option value="">CUARTO</option>
-            <option value="">QUINTO</option>
-            <option value="">SEXTO</option>
+            {!error &&
+              courses.map((c) => (
+                <option value={c.CourseName} key={c.CourseID}>
+                  {c.CourseName}
+                </option>
+              ))}
           </select>
         </div>
       </div>
@@ -180,28 +86,32 @@ export default function Enrollements() {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Surename</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Phone</th>
-                <th>Salary</th>
-                <th>Titulation</th>
-                <th>Residence</th>
+
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Paid</th>
+                <th>Debit</th>
+                <th>Date</th>
+                <th>Observations</th>
               </tr>
             </thead>
             <tbody>
-              {teachers.map((t) => (
-                <tr>
-                  <td>{t.id}</td>
-                  <td>{t.name}</td>
-                  <td>{t.surename}</td>
-                  <td className="number">{t.age}</td>
-                  <td>{t.sex}</td>
-                  <td className="number">{t.phone}</td>
-                  <td className="number">{t.salary} Fcfa</td>
-                  <td>{t.titulation}</td>
-                  <td>{t.residence}</td>
-                </tr>
-              ))}
+              {data.map((e) => {
+                <tr
+                  key={e.StudenID}
+                  onClick={() => navigate(`/student/${e.StudentID}`)}
+                >
+                  <td>{e.StudenID}</td>
+                  <td>{e.FirstName}</td>
+                  <td>{e.LastName}</td>
+                  <td>{e.TypeOf}</td>
+                  <td>{e.Amount}</td>
+                  <td>{e.Paid}</td>
+                  <td>{e.Debit}</td>
+                  <td>{e.DateOf}</td>
+                  <td>{e.Observations}</td>
+                </tr>;
+              })}
             </tbody>
           </table>
         </div>

@@ -1,46 +1,62 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Students() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    async function getStudents() {
+    const getStudents = async () => {
       try {
         const res = await fetch("http://localhost:3000/students");
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message);
+        }
+
         const result = await res.json();
         setData(result);
-      } catch (err) {
-        console.error(err.message);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
     getStudents();
   }, []);
+
+  if (isLoading) return <p>cargando datos...</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
+
   return (
     <div className="table-container">
       <table>
-        <thead>
+        <thead className="table-header-group">
           <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Age</th>
-            <th>Phone</th>
             <th>Sex</th>
+            <th>Phone</th>
+
             <th>Residence</th>
           </tr>
         </thead>
-
-        <tbody id="cuerpo-tabla">
+        <tbody>
           {data.map((s) => (
-            <tr onClick={() => navigate(`/student/${s.StudentID}`)}>
+            <tr
+              key={s.StudentID}
+              onClick={() => navigate(`/student/${s.StudentID}`)}
+            >
               <td>{s.StudentID}</td>
               <td>{s.FirstName}</td>
               <td>{s.LastName}</td>
-              <td>{s.Age}</td>
-              <td>{s.Phone}</td>
+              <td className="number">{s.Age}</td>
               <td>{s.Sex}</td>
+              <td className="number">{s.Phone}</td>
               <td>{s.Residence}</td>
             </tr>
           ))}
