@@ -1,83 +1,85 @@
 import { UserPlus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function Enrollements() {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
-  const [courses, setCourses] = useState([]);
 
-  const [err, setErr] = useState(null);
+  const [courses, setCourses] = useState([]);
   const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getCourses = async () => {
-      const res = await fetch("http://localhost:3000/courses");
-      if (!res.ok) {
-        const error = res.json();
-        setError(error);
-        throw new Error(error.message);
-      }
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      const result = await res.json();
-      setCourses(result);
+        const [coursesRes, enrollRes] = await Promise.all([
+          fetch("http://localhost:3000/courses"),
+          fetch("http://localhost:3000/enrollements"),
+        ]);
+
+        if (!coursesRes.ok) {
+          const errData = await coursesRes.json().catch(() => ({}));
+          throw new Error(
+            errData.message || `Courses error: ${coursesRes.status}`,
+          );
+        }
+        if (!enrollRes.ok) {
+          const errData = await enrollRes.json().catch(() => ({}));
+          throw new Error(
+            errData.message || `Enrollments error: ${enrollRes.status}`,
+          );
+        }
+
+        const [coursesResult, enrollResult] = await Promise.all([
+          coursesRes.json(),
+          enrollRes.json(),
+        ]);
+
+        setCourses(coursesResult);
+        setData(enrollResult);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(err.message || "Something went wrong");
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    try {
-      getCourses();
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const getEnrollements = async () => {
-      const res = await fetch("http://localhost:3000/enrollements");
-      if (!res.ok) {
-        const error = res.json();
-        setErr(error);
-        throw new Error(error.message);
-      }
-
-      const result = await res.json();
-      setData(result);
-    };
-
-    try {
-      getEnrollements();
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
-
-  if (isLoading) return <p>cargando...</p>;
-
-  if (err) return <p>ERROR: {err.message}</p>;
+  if (isLoading) return <p>Cargando...</p>;
+  if (error) return <p>ERROR: {error}</p>;
 
   return (
     <div className="enrollements">
       <div className="enrollements-menu">
         <div className="enrollements-menu-buttons">
-          <NavLink to={"enroll"} className="enroll">
-            <UserPlus></UserPlus>
+          <NavLink to="enroll" className="enroll">
+            <UserPlus />
           </NavLink>
         </div>
         <div className="enrollements-menu-inputs">
-          <input type="search" name="" id="" placeholder="" />
+          <input type="search" />
           <select name="select" id="select">
-            {!error &&
-              courses.map((c) => (
-                <option value={c.CourseName} key={c.CourseID}>
-                  {c.CourseName}
-                </option>
-              ))}
+            <option value="" disabled></option>
+            {courses.map((c) => (
+              // Adjust fallback properties depending on your actual API response keys
+              <option
+                value={c.CourseName}
+                key={c.CourseID || c.id || c.CourseName}
+              >
+                {c.CourseName}
+              </option>
+            ))}
           </select>
         </div>
       </div>
+
       <div className="enrollements-content">
         <div className="table-container">
           <table>
@@ -85,8 +87,7 @@ export default function Enrollements() {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Surename</th>
-
+                <th>Surname</th>
                 <th>Type</th>
                 <th>Amount</th>
                 <th>Paid</th>
@@ -96,12 +97,15 @@ export default function Enrollements() {
               </tr>
             </thead>
             <tbody>
-              {data.map((e) => {
+              {data.map((e) => (
                 <tr
-                  key={e.StudenID}
-                  onClick={() => navigate(`/student/${e.StudentID}`)}
+                  key={e.StudentID || e.id || e.StudenID}
+                  onClick={() =>
+                    navigate(`/student/${e.StudentID || e.id || e.StudenID}`)
+                  }
+                  style={{ cursor: "pointer" }}
                 >
-                  <td>{e.StudenID}</td>
+                  <td>{e.StudentID || e.StudenID}</td>
                   <td>{e.FirstName}</td>
                   <td>{e.LastName}</td>
                   <td>{e.TypeOf}</td>
@@ -110,8 +114,18 @@ export default function Enrollements() {
                   <td>{e.Debit}</td>
                   <td>{e.DateOf}</td>
                   <td>{e.Observations}</td>
-                </tr>;
-              })}
+                </tr>
+              ))}
+              {data.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={9}
+                    style={{ textAlign: "center", padding: "20px" }}
+                  >
+                    No hay matrículas registradas.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

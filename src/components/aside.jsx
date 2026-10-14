@@ -23,7 +23,7 @@ export default function Aside() {
   return (
     <div className={classname}>
       <div className="sidebar-menu">
-        <div className="sidebar-footer">
+        <div className="sidebar-profile">
           <div className="user-card">
             <img src={profile} alt="user" />
             <div className="user-info">

@@ -46,6 +46,7 @@ export const GlobalContex = ({ children }) => {
     Paid: null,
     DateOf: null,
     Observations: "",
+    TypeOf: "",
   });
 
   const updateEnrollementLabel = (e) => {

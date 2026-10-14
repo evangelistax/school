@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 export default function Enroll() {
   const navigate = useNavigate();
   const {
-    studentData,
+    studentData = {}, // Asegura objeto vacío si viene indefinido del contexto
     updateStudentLabel,
-    tutorData,
+    tutorData = {}, // Asegura objeto vacío si viene indefinido del contexto
     updateTutorLabel,
-    enrollementData,
+    enrollementData = {}, // Asegura objeto vacío si viene indefinido del contexto
     updateEnrollementLabel,
     currentStep,
     nextStep,
@@ -16,12 +16,15 @@ export default function Enroll() {
   } = useApp();
 
   const submit = async (e) => {
+    e.preventDefault();
+
+    // Las funciones internas se mantienen fieles a tu lógica original, pero corregidas con await
     async function postStudent() {
       const { FirstName, LastName, Age, Sex, Phone, Residence } = studentData;
       const data = {
         FirstName,
         LastName,
-        Age: parseInt(Age),
+        Age: parseInt(Age, 10),
         Sex,
         Phone,
         Residence,
@@ -30,7 +33,7 @@ export default function Enroll() {
         const res = await fetch("http://localhost:3000/students", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Añadido para que el servidor entienda el JSON
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         });
@@ -42,29 +45,30 @@ export default function Enroll() {
           );
         }
 
-        const result = await res.json(); // Añadido await para resolver la promesa del JSON
-
-        alert("Datos enviados con éxito", result.message);
+        const result = await res.json();
+        alert(`Datos enviados con éxito: ${result.message || ""}`);
         navigate("/");
       } catch (error) {
         alert(`Ocurrió un error: ${error.message}`);
       }
     }
+
     async function postEnrollData() {
-      const { FirstName, LastName, Age, Sex, Phone, Residence } = studentData;
+      // Corregido: Ahora extrae correctamente los datos del Paso 3 (Matrícula)
+      const { Amount, Type, Paid, DateOf, Observations } = enrollementData;
       const data = {
-        FirstName,
-        LastName,
-        Age: parseInt(Age),
-        Sex,
-        Phone,
-        Residence,
+        Amount: parseFloat(Amount),
+        Type,
+        Paid: parseFloat(Paid),
+        DateOf,
+        Observations,
       };
       try {
-        const res = await fetch("http://localhost:3000/students", {
+        const res = await fetch("http://localhost:3000/enrollments", {
+          // Ajustado al endpoint lógico de matrículas
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Añadido para que el servidor entienda el JSON
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         });
@@ -76,9 +80,8 @@ export default function Enroll() {
           );
         }
 
-        const result = await res.json(); // Añadido await para resolver la promesa del JSON
-
-        alert("Datos enviados con éxito", result.message);
+        const result = await res.json();
+        alert(`Datos enviados con éxito: ${result.message || ""}`);
         navigate("/");
       } catch (error) {
         alert(`Ocurrió un error: ${error.message}`);
@@ -86,9 +89,9 @@ export default function Enroll() {
     }
 
     try {
-      e.preventDefault();
-      postStudent();
-      postEnrollData();
+      // Se ejecutan en orden secuencial esperando sus respuestas
+      await postStudent();
+      await postEnrollData();
     } catch (error) {
       alert(`hubo un error: ${error}`);
     }
@@ -112,7 +115,7 @@ export default function Enroll() {
                   type="text"
                   id="student-name"
                   name="FirstName"
-                  value={studentData.FirstName}
+                  value={studentData.FirstName || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -123,7 +126,7 @@ export default function Enroll() {
                   type="text"
                   id="student-surename"
                   name="LastName"
-                  value={studentData.LastName}
+                  value={studentData.LastName || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -133,7 +136,7 @@ export default function Enroll() {
                   type="number"
                   id="student-age"
                   name="Age"
-                  value={studentData.Age}
+                  value={studentData.Age || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -144,7 +147,7 @@ export default function Enroll() {
                   type="text"
                   id="student-sex"
                   name="Sex"
-                  value={studentData.Sex}
+                  value={studentData.Sex || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -155,7 +158,7 @@ export default function Enroll() {
                   type="text"
                   id="student-phone"
                   name="Phone"
-                  value={studentData.Phone}
+                  value={studentData.Phone || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -166,7 +169,7 @@ export default function Enroll() {
                   type="text"
                   id="student-residence"
                   name="Residence"
-                  value={studentData.Residence}
+                  value={studentData.Residence || ""}
                   onChange={updateStudentLabel}
                 />
               </div>
@@ -184,8 +187,8 @@ export default function Enroll() {
                 <input
                   type="text"
                   id="teacher-name"
-                  name="FirstName" // Corregido: "Firstname" -> "FirstName" para coincidir con el estado
-                  value={tutorData.FirstName}
+                  name="FirstName"
+                  value={tutorData.FirstName || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
@@ -196,7 +199,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-surename"
                   name="LastName"
-                  value={tutorData.LastName}
+                  value={tutorData.LastName || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
@@ -207,7 +210,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-phone"
                   name="Phone"
-                  value={tutorData.Phone}
+                  value={tutorData.Phone || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
@@ -218,7 +221,7 @@ export default function Enroll() {
                   type="text"
                   id="teacher-residence"
                   name="Residence"
-                  value={tutorData.Residence}
+                  value={tutorData.Residence || ""}
                   onChange={updateTutorLabel}
                 />
               </div>
@@ -237,7 +240,18 @@ export default function Enroll() {
                   type="text"
                   id="enrollement-amount"
                   name="Amount"
-                  value={enrollementData.Amount}
+                  value={enrollementData.Amount || ""}
+                  onChange={updateEnrollementLabel}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="enrollement-type">Type</label>
+                <input
+                  type="text"
+                  id="enrollement-type"
+                  name="Type"
+                  value={enrollementData.Type || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
@@ -248,7 +262,7 @@ export default function Enroll() {
                   type="text"
                   id="enrollement-paid"
                   name="Paid"
-                  value={enrollementData.Paid}
+                  value={enrollementData.Paid || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
@@ -258,19 +272,19 @@ export default function Enroll() {
                 <input
                   type="date"
                   id="enrollement-date"
-                  name="DateOf" // Corregido: "dateof" -> "DateOf" para coincidir con la propiedad del objeto
-                  value={enrollementData.DateOf}
+                  name="DateOf"
+                  value={enrollementData.DateOf || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
 
               <div>
-                <label htmlFor="enrollement-observation">Observations</label>
+                <label htmlFor="enrollement-observations">Observations</label>
                 <input
                   type="text"
-                  id="enrollement-observation"
+                  id="enrollement-observations"
                   name="Observations"
-                  value={enrollementData.Observations} // Corregido: .Age -> .Observations
+                  value={enrollementData.Observations || ""}
                   onChange={updateEnrollementLabel}
                 />
               </div>
@@ -278,24 +292,23 @@ export default function Enroll() {
           </div>
         )}
 
-        {/* Navegación de botones */}
-        <div className="form-navigation">
+        {/* Botones de control del flujo por pasos */}
+        <div
+          className="form-buttons"
+          style={{ marginTop: "20px", display: "flex", gap: "10px" }}
+        >
           {currentStep > 1 && (
-            <button type="button" className="btn-secondary" onClick={prevStep}>
-              Anterior
+            <button type="button" onClick={prevStep}>
+              Atrás
             </button>
           )}
 
-          {currentStep < 3 && (
-            <button type="button" className="btn-primary" onClick={nextStep}>
+          {currentStep < 3 ? (
+            <button type="button" onClick={nextStep}>
               Siguiente
             </button>
-          )}
-
-          {currentStep === 3 && (
-            <button type="submit" className="btn-primary">
-              Enviar
-            </button>
+          ) : (
+            <button type="submit">Enviar Formulario</button>
           )}
         </div>
       </form>

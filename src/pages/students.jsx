@@ -46,6 +46,13 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
+          {data.length === 0 && (
+            <tr>
+              <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
+                No hay estudiantes registrados.
+              </td>
+            </tr>
+          )}
           {data.map((s) => (
             <tr
               key={s.StudentID}
