@@ -12,7 +12,10 @@ export const GlobalContex = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   // Funciones para avanzar y retroceder
-  const nextStep = () => setCurrentStep((prev) => prev + 1);
+  const nextStep = (e) => {
+    e.preventDefault();
+    setCurrentStep((prev) => prev + 1);
+  };
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const [studentData, setStudentData] = useState({
@@ -44,14 +47,14 @@ export const GlobalContex = ({ children }) => {
   const [enrollementData, setEnrollementData] = useState({
     Amount: null,
     Paid: null,
-    DateOf: null,
+    DateOf: "",
     Observations: "",
     TypeOf: "",
   });
 
   const updateEnrollementLabel = (e) => {
     const { name, value } = e.target;
-    setEnrollementData({ ...studentData, [name]: value });
+    setEnrollementData({ ...enrollementData, [name]: value });
   };
 
   const changeVisibility = () => {
