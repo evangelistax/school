@@ -1,7 +1,9 @@
 import { useApp } from "../contexts/utils";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Enroll() {
+  const [category, setCategory] = useState("Hola");
   const navigate = useNavigate();
   const {
     studentData = {},
@@ -17,7 +19,7 @@ export default function Enroll() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    alert(category);
     const data = {
       FirstName: studentData.FirstName || "",
       LastName: studentData.LastName || "",
@@ -27,7 +29,7 @@ export default function Enroll() {
       Residence: studentData.Residence || "",
 
       Amount: parseFloat(enrollementData.Amount) || 0,
-      TypeOf: enrollementData.TypeOf || "",
+      TypeOf: category,
       Paid: parseFloat(enrollementData.Paid) || 0,
       DateOf: enrollementData.DateOf || "",
       Observations: enrollementData.Observations || "",
@@ -196,15 +198,22 @@ export default function Enroll() {
                   onChange={updateEnrollementLabel}
                 />
               </div>
+
               <div>
                 <label htmlFor="enrollement-type">Type</label>
-                <input
-                  type="text"
-                  id="enrollement-type"
+
+                <select
                   name="TypeOf"
-                  value={enrollementData.TypeOf || ""}
-                  onChange={updateEnrollementLabel}
-                />
+                  id="enrollement-type"
+                  value={category}
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                >
+                  <option value="Ordinary">Ordinary</option>
+                  <option value="Extraordinay">Extraordinary</option>
+                  <option value="Exonered">Exonered</option>
+                </select>
               </div>
               <div>
                 <label htmlFor="enrollement-paid">Paid</label>

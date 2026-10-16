@@ -27,9 +27,6 @@ export default function Students() {
     getStudents();
   }, []);
 
-  if (isLoading) return <p>cargando datos...</p>;
-  if (error) return <p>ERROR: {error.message}</p>;
-
   return (
     <div className="table-container">
       <table>
@@ -46,27 +43,44 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {data.length === 0 && (
+          {isLoading && (
+            <tr>
+              <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
+                cargando...
+              </td>
+            </tr>
+          )}
+          {data.length === 0 && !error && !isLoading && (
             <tr>
               <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
                 No hay estudiantes registrados.
               </td>
             </tr>
           )}
-          {data.map((s) => (
-            <tr
-              key={s.StudentID}
-              onClick={() => navigate(`/student/${s.StudentID}`)}
-            >
-              <td>{s.StudentID}</td>
-              <td>{s.FirstName}</td>
-              <td>{s.LastName}</td>
-              <td className="number">{s.Age}</td>
-              <td>{s.Sex}</td>
-              <td className="number">{s.Phone}</td>
-              <td>{s.Residence}</td>
+          {error && (
+            <tr>
+              <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
+                {error.message}
+              </td>
             </tr>
-          ))}
+          )}
+
+          {!isLoading &&
+            !error &&
+            data.map((s) => (
+              <tr
+                key={s.StudentID}
+                onClick={() => navigate(`/student/${s.StudentID}`)}
+              >
+                <td>{s.StudentID}</td>
+                <td>{s.FirstName}</td>
+                <td>{s.LastName}</td>
+                <td className="number">{s.Age}</td>
+                <td>{s.Sex}</td>
+                <td className="number">{s.Phone}</td>
+                <td>{s.Residence}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

@@ -25,9 +25,6 @@ export default function Students() {
     getStudents();
   }, []);
 
-  if (isLoading) return <p>cargando datos...</p>;
-  if (error) return <p>ERROR: {error.message}</p>;
-
   return (
     <div className="table-container">
       <table>
@@ -45,19 +42,34 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {data.map((t) => (
-            <tr key={t.StudentID}>
-              <td>{t.ProfessorID}</td>
-              <td>{t.FirstName}</td>
-              <td>{t.LastName}</td>
-              <td className="number">{t.Age}</td>
-              <td>{t.Sex}</td>
-              <td className="number">{t.Phone}</td>
-              <td>{t.Salary}</td>
-              <td>{t.Titulation}</td>
-              <td>{t.Residence}</td>
+          {isLoading && (
+            <tr>
+              <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
+                cargando...
+              </td>
             </tr>
-          ))}
+          )}
+          {error && (
+            <tr>
+              <td colSpan={9} style={{ textAlign: "center", padding: "20px" }}>
+                {error.message}
+              </td>
+            </tr>
+          )}
+          {!isLoading &&
+            data.map((t) => (
+              <tr key={t.StudentID}>
+                <td>{t.ProfessorID}</td>
+                <td>{t.FirstName}</td>
+                <td>{t.LastName}</td>
+                <td className="number">{t.Age}</td>
+                <td>{t.Sex}</td>
+                <td className="number">{t.Phone}</td>
+                <td>{t.Salary}</td>
+                <td>{t.Titulation}</td>
+                <td>{t.Residence}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
