@@ -18,6 +18,8 @@
   --toolkit-bar: #686666;
   --background: white;
   --shadow: rgba(0, 0, 0, 0.15);
+
+  --color: rgb(250, 210, 250);
 }
 
 .dark {
@@ -522,7 +524,7 @@ tr:hover td {
   justify-content: space-between;
   transition: background 1s ease;
   padding-left: 10px;
-  padding-right: 20px;
+  padding-right: 10px;
   width: 100%;
   height: 30px;
   background: var(--bg-primary);
@@ -543,12 +545,17 @@ tr:hover td {
 }
 
 .enrollements-menu-inputs {
+
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 .enrollements-menu-inputs input {
+  display: flex;
+  align-items: center;
   width: 100px;
+  height: 22px;
   border-radius: 8px;
   background-color: var(--bg-secondary);
   color: var(--tex-primary);
@@ -564,6 +571,31 @@ tr:hover td {
   color: var(--tex-primary);
   transition: color 1s ease, background 1s ease;
   border-radius: 4px;
+}
+
+.query-element {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 4px;
+}
+
+
+
+.filter {
+  border-style: none;
+  height: 22px;
+  width: 50px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 1s ease;
+
+}
+
+.filter:hover {
+  background: var(--bg-terciary);
+  transition: background 0.2s ease;
 }
 
 .enrollements-content {

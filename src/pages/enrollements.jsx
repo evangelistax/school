@@ -3,11 +3,56 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Enrollements() {
+  const search = async (name, type, course) => {
+    setIsLoading(true);
+    let url = "http://localhost:3000/enrollements";
+    const p = [];
+    const u = [];
+    if (name) {
+      p.push(name);
+      u.push(`name=${name}`);
+    }
+    if (type) {
+      p.push(type);
+      u.push(`type=${type}`);
+    }
+    if (course) {
+      p.push(course);
+      u.push(`course=${course}`);
+    }
+
+    if (p.length > 0) {
+      url += "?" + u.join("&");
+    }
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message);
+      }
+      setError(null);
+      const result = await res.json();
+      setData(result);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [type, setType] = useState("");
+  const [course, setCourse] = useState("");
+  const [name, setName] = useState("");
+
+  const updateName = (e) => {
+    setName(e.target.value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +62,7 @@ export default function Enrollements() {
 
         const [coursesRes, enrollRes] = await Promise.all([
           fetch("http://localhost:3000/courses"),
-          fetch("http://localhost:3000/enrollements?type=Ordinary"),
+          fetch("http://localhost:3000/enrollements"),
         ]);
 
         if (!coursesRes.ok) {
@@ -60,19 +105,63 @@ export default function Enrollements() {
           </NavLink>
         </div>
         <div className="enrollements-menu-inputs">
-          <input type="search" />
-          <select name="select" id="select">
-            <option value="" disabled></option>
-            {courses.map((c) => (
-              // Adjust fallback properties depending on your actual API response keys
-              <option
-                value={c.CourseName}
-                key={c.CourseID || c.id || c.CourseName}
-              >
-                {c.CourseName}
-              </option>
-            ))}
-          </select>
+          <div className="query-element">
+            <label htmlFor="name">
+              <p>Name</p>{" "}
+            </label>
+            <input id="name" type="search" onChange={updateName} />
+          </div>
+          <div className="query-element">
+            <label htmlFor="type">
+              <p>Type</p>
+            </label>
+            <select
+              name=""
+              id="type"
+              onChange={(e) => {
+                setType(e.target.value);
+              }}
+            >
+              <option value="">All</option>
+              <option value="Ordinary">Ordinary</option>
+              <option value="Extraordinary">Extraordinary</option>
+              <option value="Exonered">Exonered</option>
+            </select>
+          </div>
+          <div className="query-element">
+            <label htmlFor="course">
+              <p>Course</p>
+            </label>
+            <select
+              name="select"
+              id="course"
+              onChange={(e) => {
+                setCourse(e.target.value);
+              }}
+            >
+              <option value="">All</option>
+              {courses.map((c) => (
+                // Adjust fallback properties depending on your actual API response keys
+
+                <option
+                  value={c.CourseName}
+                  key={c.CourseID || c.id || c.CourseName}
+                >
+                  {c.CourseName}
+                </option>
+              ))}
+            </select>
+
+            <button
+              className="filter"
+              onClick={(e) => {
+                e.preventDefault;
+                search(name, type, course);
+              }}
+            >
+              <p>filter</p>
+            </button>
+          </div>
         </div>
       </div>
 
