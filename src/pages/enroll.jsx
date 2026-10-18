@@ -9,6 +9,8 @@ export default function Enroll() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const className = "counter active";
+
   useEffect(() => {
     const getCourses = async () => {
       try {
@@ -39,6 +41,7 @@ export default function Enroll() {
     currentStep,
     nextStep,
     prevStep,
+    setStep,
   } = useApp();
 
   const handleSubmit = async (e) => {
@@ -84,231 +87,246 @@ export default function Enroll() {
   };
 
   return (
-    <div className="form-container">
-      <div className="step-indicator">Paso {currentStep} de 3</div>
-      <h3>Formulario de Matrícula</h3>
-      <form onSubmit={handleSubmit}>
-        {/* Paso 1: Datos del estudiante */}
-        {currentStep === 1 && (
-          <div className="form-step">
-            <h2>Datos del estudiante</h2>
-            <div className="grid-layout">
-              <div>
-                <label htmlFor="student-name">First Name</label>
-                <input
-                  type="text"
-                  id="student-name"
-                  name="FirstName"
-                  value={studentData.FirstName || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="student-surname">Last Name</label>
-                <input
-                  type="text"
-                  id="student-surname"
-                  name="LastName"
-                  value={studentData.LastName || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="student-age">Age</label>
-                <input
-                  type="number"
-                  id="student-age"
-                  name="Age"
-                  value={studentData.Age || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="student-sex">Sex</label>
-                <input
-                  type="text"
-                  id="student-sex"
-                  name="Sex"
-                  value={studentData.Sex || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="student-phone">Phone</label>
-                <input
-                  type="text"
-                  id="student-phone"
-                  name="Phone"
-                  value={studentData.Phone || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="student-residence">Residence</label>
-                <input
-                  type="text"
-                  id="student-residence"
-                  name="Residence"
-                  value={studentData.Residence || ""}
-                  onChange={updateStudentLabel}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Paso 2: Datos del Tutor */}
-        {currentStep === 2 && (
-          <div className="form-step">
-            <h2>Datos del Tutor</h2>
-            <div className="grid-layout">
-              <div>
-                <label htmlFor="teacher-name">First Name</label>
-                <input
-                  type="text"
-                  id="teacher-name"
-                  name="FirstName"
-                  value={tutorData.FirstName || ""}
-                  onChange={updateTutorLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="teacher-surname">Last Name</label>
-                <input
-                  type="text"
-                  id="teacher-surname"
-                  name="LastName"
-                  value={tutorData.LastName || ""}
-                  onChange={updateTutorLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="teacher-phone">Phone</label>
-                <input
-                  type="text"
-                  id="teacher-phone"
-                  name="Phone"
-                  value={tutorData.Phone || ""}
-                  onChange={updateTutorLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="teacher-residence">Residence</label>
-                <input
-                  type="text"
-                  id="teacher-residence"
-                  name="Residence"
-                  value={tutorData.Residence || ""}
-                  onChange={updateTutorLabel}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Paso 3: Detalles de Matrícula */}
-        {currentStep === 3 && (
-          <div className="form-step">
-            <h2>Detalles de Matrícula</h2>
-            <div className="grid-layout">
-              <div>
-                <label htmlFor="enrollement-amount">Amount</label>
-                <input
-                  type="number"
-                  step="any"
-                  id="enrollement-amount"
-                  name="Amount"
-                  value={enrollementData.Amount || ""}
-                  onChange={updateEnrollementLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="enrollement-type">Type</label>
-                <select
-                  name="TypeOf"
-                  id="enrollement-type"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="Ordinary">Ordinary</option>
-                  <option value="Extraordinay">Extraordinary</option>
-                  <option value="Exonered">Exonered</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="enrollement-course">Course</label>
-                <select
-                  name="course"
-                  id="enrollement-course"
-                  value={grade}
-                  onChange={(e) => setGrade(e.target.value)}
-                >
-                  {error && <option>{error.message}</option>}
-                  {courses &&
-                    !isLoading &&
-                    courses.map((c) => (
-                      <option key={c.CourseID} value={c.CourseID}>
-                        {c.CourseName}
-                      </option>
-                    ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="enrollement-paid">Paid</label>
-                <input
-                  type="number"
-                  step="any"
-                  id="enrollement-paid"
-                  name="Paid"
-                  value={enrollementData.Paid || ""}
-                  onChange={updateEnrollementLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="enrollement-date">Date</label>
-                <input
-                  type="date"
-                  id="enrollement-date"
-                  name="DateOf"
-                  value={enrollementData.DateOf || ""}
-                  onChange={updateEnrollementLabel}
-                />
-              </div>
-              <div>
-                <label htmlFor="enrollement-observations">Observations</label>
-                <input
-                  type="text"
-                  id="enrollement-observations"
-                  name="Observations"
-                  value={enrollementData.Observations || ""}
-                  onChange={updateEnrollementLabel}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Botones de control del flujo por pasos */}
+    <div className="form">
+      <div className="step-count">
         <div
-          className="form-buttons"
-          style={{ marginTop: "20px", display: "flex", gap: "10px" }}
+          className={currentStep == 1 ? className : "counter"}
+          onClick={() => setStep(1)}
         >
+          1
+        </div>
+        <div
+          className={currentStep == 2 ? className : "counter"}
+          onClick={() => setStep(2)}
+        >
+          2
+        </div>
+        <div
+          className={currentStep == 3 ? className : "counter"}
+          onClick={() => setStep(3)}
+        >
+          3
+        </div>
+      </div>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          {currentStep === 1 && (
+            <div className="form-step">
+              <h2>Datos del Estudiante</h2>
+              <div className="grid-layout">
+                <div>
+                  <label htmlFor="student-name">First Name</label>
+                  <input
+                    type="text"
+                    id="student-name"
+                    name="FirstName"
+                    value={studentData.FirstName || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="student-surname">Last Name</label>
+                  <input
+                    type="text"
+                    id="student-surname"
+                    name="LastName"
+                    value={studentData.LastName || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="student-age">Age</label>
+                  <input
+                    type="number"
+                    id="student-age"
+                    name="Age"
+                    value={studentData.Age || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="student-sex">Sex</label>
+                  <input
+                    type="text"
+                    id="student-sex"
+                    name="Sex"
+                    value={studentData.Sex || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="student-phone">Phone</label>
+                  <input
+                    type="text"
+                    id="student-phone"
+                    name="Phone"
+                    value={studentData.Phone || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="student-residence">Residence</label>
+                  <input
+                    type="text"
+                    id="student-residence"
+                    name="Residence"
+                    value={studentData.Residence || ""}
+                    onChange={updateStudentLabel}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 2 && (
+            <div className="form-step">
+              <h2>Datos del Tutor</h2>
+              <div className="grid-layout">
+                <div>
+                  <label htmlFor="teacher-name">First Name</label>
+                  <input
+                    type="text"
+                    id="teacher-name"
+                    name="FirstName"
+                    value={tutorData.FirstName || ""}
+                    onChange={updateTutorLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="teacher-surname">Last Name</label>
+                  <input
+                    type="text"
+                    id="teacher-surname"
+                    name="LastName"
+                    value={tutorData.LastName || ""}
+                    onChange={updateTutorLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="teacher-phone">Phone</label>
+                  <input
+                    type="text"
+                    id="teacher-phone"
+                    name="Phone"
+                    value={tutorData.Phone || ""}
+                    onChange={updateTutorLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="teacher-residence">Residence</label>
+                  <input
+                    type="text"
+                    id="teacher-residence"
+                    name="Residence"
+                    value={tutorData.Residence || ""}
+                    onChange={updateTutorLabel}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Paso 3: Detalles de Matrícula */}
+          {currentStep === 3 && (
+            <div className="form-step">
+              <h2>Detalles de la Matrícula</h2>
+              <div className="grid-layout">
+                <div>
+                  <label htmlFor="enrollement-amount">Amount</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="enrollement-amount"
+                    name="Amount"
+                    value={enrollementData.Amount || ""}
+                    onChange={updateEnrollementLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enrollement-type">Type</label>
+                  <select
+                    className="select"
+                    name="TypeOf"
+                    id="enrollement-type"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option value="Ordinary">Ordinary</option>
+                    <option value="Extraordinay">Extraordinary</option>
+                    <option value="Exonered">Exonered</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="enrollement-course">Course</label>
+                  <select
+                    className="select"
+                    name="course"
+                    id="enrollement-course"
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                  >
+                    {error && <option>{error.message}</option>}
+                    {courses &&
+                      !isLoading &&
+                      courses.map((c) => (
+                        <option key={c.CourseID} value={c.CourseID}>
+                          {c.CourseName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="enrollement-paid">Paid</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="enrollement-paid"
+                    name="Paid"
+                    value={enrollementData.Paid || ""}
+                    onChange={updateEnrollementLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enrollement-date">Date</label>
+                  <input
+                    type="date"
+                    id="enrollement-date"
+                    name="DateOf"
+                    value={enrollementData.DateOf || ""}
+                    onChange={updateEnrollementLabel}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enrollement-observations">Observations</label>
+                  <input
+                    type="text"
+                    id="enrollement-observations"
+                    name="Observations"
+                    value={enrollementData.Observations || ""}
+                    onChange={updateEnrollementLabel}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </form>
+        <div className="form-navigation">
           {currentStep > 1 && (
             <button type="button" onClick={prevStep} className="btn-secondary">
-              Atrás
+              Prev
             </button>
           )}
           {currentStep < 3 ? (
             <button type="button" onClick={nextStep} className="btn-primary">
-              Siguiente
+              Next
             </button>
           ) : (
-            <button type="submit" className="btn-primary">
-              Enviar Formulario
+            <button onClick={handleSubmit} className="btn-primary">
+              Save
             </button>
           )}
         </div>
-      </form>
+      </div>
     </div>
   );
 }

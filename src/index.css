@@ -87,6 +87,8 @@ body {
   transition: background 1s ease;
   position: relative;
   overflow-y: auto;
+  border-radius: 4px;
+  margin-bottom: 4px;
 }
 
 .header-actions {
@@ -699,51 +701,79 @@ tr:hover td {
   --transition: all 0.2s ease-in-out;
 }
 
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.step-count {
+  width: 5%;
+  height: calc(100% - 20px);
+  background: var(--bg-primary);
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.counter {
+  flex-grow: 1;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.counter.active {
+  background: var(--color);
+}
+
+.counter:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+}
+
+.counter:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
 
 .form-container {
-  margin-top: 0;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 95%;
+  height: calc(100% - 20px);
   padding: 10px 10px;
-  background-color: var(--card-bg);
+  background-color: var(--bg-primary);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   position: relative;
+  transition: background;
+  border-radius: 8px;
   /* Para posicionar el indicador de paso */
 }
 
-/* Indicador de paso en la esquina superior */
-.step-indicator {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  background-color: var(--bg-color);
-  color: var(--text-muted);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
+.form-navigation {
+  display: flex;
+
 }
+
 
 .form-container h3 {
   text-align: center;
-  color: var(--text-main);
+  color: var(--tex-primary);
   margin-bottom: 10px;
 }
 
-.form-step h2 {
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
-
-.form-step h2::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background-color: var(--border-color);
-  margin-left: 15px;
-}
 
 /* Layout de cuadrícula reutilizable para cada paso */
 .grid-layout {
@@ -758,21 +788,47 @@ tr:hover td {
   flex-direction: column;
 }
 
+.form-step {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-main);
+  color: var(--tex-primary);
   margin-bottom: 6px;
 }
 
 input[type="text"],
 input[type="number"],
 input[type="date"] {
+
   padding: 10px 12px;
   font-size: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   transition: var(--transition);
+  background: var(--bg-secondary);
+  color: var(--tex-primary);
+}
+
+.select {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: var(--transition);
+  outline: none;
+  background: var(--bg-secondary);
+  color: var(--tex-primary);
+}
+
+.select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(250, 210, 250);
+  outline: none;
 }
 
 input[type="text"]:focus,

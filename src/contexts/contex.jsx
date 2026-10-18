@@ -17,6 +17,7 @@ export const GlobalContex = ({ children }) => {
     setCurrentStep((prev) => prev + 1);
   };
   const prevStep = () => setCurrentStep((prev) => prev - 1);
+  const setStep = (n) => setCurrentStep(n);
 
   const [studentData, setStudentData] = useState({
     FirstName: "",
@@ -91,6 +92,7 @@ export const GlobalContex = ({ children }) => {
         currentStep,
         nextStep,
         prevStep,
+        setStep,
         data,
         setData,
       }}
