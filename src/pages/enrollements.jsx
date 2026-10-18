@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Enrollements() {
   const search = async (name, type, course) => {
+    setError(null);
     setIsLoading(true);
     let url = "http://localhost:3000/enrollements";
     const p = [];
@@ -31,7 +32,7 @@ export default function Enrollements() {
         const err = await res.json();
         throw new Error(err.message);
       }
-      setError(null);
+
       const result = await res.json();
       setData(result);
     } catch (error) {
@@ -173,6 +174,7 @@ export default function Enrollements() {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
+                <th>Course</th>
                 <th>Type</th>
                 <th>Amount</th>
                 <th>Paid</th>
@@ -205,6 +207,7 @@ export default function Enrollements() {
                     <td>{e.StudentID || e.StudenID}</td>
                     <td>{e.FirstName}</td>
                     <td>{e.LastName}</td>
+                    <td>{e.CourseName}</td>
                     <td>{e.TypeOf}</td>
                     <td className="number">{e.Amount}</td>
                     <td className="number">{e.Paid}</td>

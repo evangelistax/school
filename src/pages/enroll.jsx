@@ -1,9 +1,33 @@
 import { useApp } from "../contexts/utils";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Enroll() {
-  const [category, setCategory] = useState("Hola");
+  const [category, setCategory] = useState("Ordinary"); // Defaulted to match first select option
+  const [grade, setGrade] = useState("");
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/courses");
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message);
+        }
+        const result = await res.json();
+        setCourses(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getCourses();
+  }, []);
+
   const navigate = useNavigate();
   const {
     studentData = {},
@@ -19,7 +43,7 @@ export default function Enroll() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(category);
+
     const data = {
       FirstName: studentData.FirstName || "",
       LastName: studentData.LastName || "",
@@ -27,9 +51,9 @@ export default function Enroll() {
       Sex: studentData.Sex || "",
       Phone: studentData.Phone || "",
       Residence: studentData.Residence || "",
-
       Amount: parseFloat(enrollementData.Amount) || 0,
       TypeOf: category,
+      CourseID: parseInt(grade, 10) || 0,
       Paid: parseFloat(enrollementData.Paid) || 0,
       DateOf: enrollementData.DateOf || "",
       Observations: enrollementData.Observations || "",
@@ -47,7 +71,7 @@ export default function Enroll() {
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
         throw new Error(
-          errorData.message || `Error en el servidor: \${res.status}`,
+          errorData.message || `Error en el servidor: ${res.status}`,
         );
       }
 
@@ -198,21 +222,35 @@ export default function Enroll() {
                   onChange={updateEnrollementLabel}
                 />
               </div>
-
               <div>
                 <label htmlFor="enrollement-type">Type</label>
-
                 <select
                   name="TypeOf"
                   id="enrollement-type"
                   value={category}
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
+                  onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="Ordinary">Ordinary</option>
                   <option value="Extraordinay">Extraordinary</option>
                   <option value="Exonered">Exonered</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="enrollement-course">Course</label>
+                <select
+                  name="course"
+                  id="enrollement-course"
+                  value={grade}
+                  onChange={(e) => setGrade(e.target.value)}
+                >
+                  {error && <option>{error.message}</option>}
+                  {courses &&
+                    !isLoading &&
+                    courses.map((c) => (
+                      <option key={c.CourseID} value={c.CourseID}>
+                        {c.CourseName}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div>
@@ -262,7 +300,7 @@ export default function Enroll() {
           )}
           {currentStep < 3 ? (
             <button type="button" onClick={nextStep} className="btn-primary">
-              Siguiente`,
+              Siguiente
             </button>
           ) : (
             <button type="submit" className="btn-primary">

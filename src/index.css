@@ -201,6 +201,7 @@ header .overview select option {
   align-items: center;
   border-radius: 8px;
   transition: background 1s ease;
+
 }
 
 .links-items {
@@ -580,6 +581,24 @@ tr:hover td {
   gap: 4px;
 }
 
+.query-element input {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  height: 22px;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  color: var(--tex-primary);
+  border: 1px solid var(--border);
+  padding-left: 10px;
+  outline: none;
+  transition: color 1s ease, background-color 1s ease, border 1s ease;
+}
+
+
+
+
+
 
 
 .filter {
@@ -593,12 +612,52 @@ tr:hover td {
 
 }
 
+
+.search {
+  border-style: none;
+  height: 22px;
+  width: 50px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .filter:hover {
   background: var(--bg-terciary);
   transition: background 0.2s ease;
 }
 
 .enrollements-content {
+  width: 100%;
+  height: calc(100% - 30px);
+  position: relative;
+}
+
+.students-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.students-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: background 1s ease;
+  padding-left: 10px;
+  padding-right: 20px;
+  width: 100%;
+  height: 30px;
+  background: var(--bg-primary);
+  gap: 4px;
+}
+
+.students-data {
   width: 100%;
   height: calc(100% - 30px);
   position: relative;
