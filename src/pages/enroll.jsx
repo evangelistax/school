@@ -1,10 +1,12 @@
 import { useApp } from "../contexts/utils";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Save } from "lucide-react";
 
 export default function Enroll() {
-  const [category, setCategory] = useState("Ordinary"); // Defaulted to match first select option
+  const [category, setCategory] = useState("hola"); // Defaulted to match first select option
   const [grade, setGrade] = useState("");
+  const [sex, setSex] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,7 +43,6 @@ export default function Enroll() {
     currentStep,
     nextStep,
     prevStep,
-    setStep,
   } = useApp();
 
   const handleSubmit = async (e) => {
@@ -51,7 +52,7 @@ export default function Enroll() {
       FirstName: studentData.FirstName || "",
       LastName: studentData.LastName || "",
       Age: parseInt(studentData.Age, 10) || 0,
-      Sex: studentData.Sex || "",
+      Sex: sex || "",
       Phone: studentData.Phone || "",
       Residence: studentData.Residence || "",
       Amount: parseFloat(enrollementData.Amount) || 0,
@@ -89,24 +90,9 @@ export default function Enroll() {
   return (
     <div className="form">
       <div className="step-count">
-        <div
-          className={currentStep == 1 ? className : "counter"}
-          onClick={() => setStep(1)}
-        >
-          1
-        </div>
-        <div
-          className={currentStep == 2 ? className : "counter"}
-          onClick={() => setStep(2)}
-        >
-          2
-        </div>
-        <div
-          className={currentStep == 3 ? className : "counter"}
-          onClick={() => setStep(3)}
-        >
-          3
-        </div>
+        <div className={currentStep == 1 ? className : "counter"}></div>
+        <div className={currentStep == 2 ? className : "counter"}></div>
+        <div className={currentStep == 3 ? className : "counter"}></div>
       </div>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
@@ -146,13 +132,16 @@ export default function Enroll() {
                 </div>
                 <div>
                   <label htmlFor="student-sex">Sex</label>
-                  <input
-                    type="text"
+                  <select
+                    className="select"
+                    name="student-sex"
                     id="student-sex"
-                    name="Sex"
-                    value={studentData.Sex || ""}
-                    onChange={updateStudentLabel}
-                  />
+                    onChange={(e) => setSex(e.target.value)}
+                  >
+                    <option value=""></option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                  </select>
                 </div>
                 <div>
                   <label htmlFor="student-phone">Phone</label>
@@ -266,6 +255,7 @@ export default function Enroll() {
                     onChange={(e) => setGrade(e.target.value)}
                   >
                     {error && <option>{error.message}</option>}
+                    <option value=""></option>
                     {courses &&
                       !isLoading &&
                       courses.map((c) => (
@@ -322,7 +312,9 @@ export default function Enroll() {
             </button>
           ) : (
             <button onClick={handleSubmit} className="btn-primary">
-              Save
+              <div>
+                <Save></Save>
+              </div>
             </button>
           )}
         </div>

@@ -219,7 +219,7 @@ export default function Enrollements() {
               {data.length === 0 && !error && !isLoading && (
                 <tr>
                   <td
-                    colSpan={9}
+                    colSpan={10}
                     style={{ textAlign: "center", padding: "20px" }}
                   >
                     No hay matrículas registradas.
@@ -230,7 +230,7 @@ export default function Enrollements() {
               {error && (
                 <tr>
                   <td
-                    colSpan={9}
+                    colSpan={10}
                     style={{ textAlign: "center", padding: "20px" }}
                   >
                     {error}

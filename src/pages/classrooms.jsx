@@ -1,3 +1,47 @@
-export default function Classrooms(){
-    return <p>classrooms</p>
+import ClassRoom from "../components/ClassroomCard";
+import { useState, useEffect } from "react";
+
+export default function Classrooms() {
+  const [classrooms, setClassrooms] = useState({});
+  const [err, setErr] = useState(null);
+  const [isLoading, setIsloading] = useState(true);
+  useEffect(() => {
+    async function get() {
+      try {
+        const data = await fetch("http://localhost:3000/classrooms");
+        if (!data.ok) {
+          const err = await data.json();
+          throw new Error(err.message);
+        }
+
+        const result = await data.json();
+        setClassrooms(result);
+      } catch (error) {
+        setErr(error);
+      } finally {
+        setIsloading(false);
+      }
+    }
+
+    get();
+  }, []);
+  return (
+    <div className="classroom-container ">
+      {isLoading && <p>cargando...</p>}
+      {!isLoading && err && <p>{err.message}</p>}
+      {!isLoading &&
+        !err &&
+        classrooms.map((c) => (
+          <ClassRoom
+            key={c.ClassroomName}
+            data={{
+              ClassroomName: c.ClassroomName,
+              Total: 21,
+              FirstName: c.FirstName,
+              CourseName: c.CourseName,
+            }}
+          ></ClassRoom>
+        ))}
+    </div>
+  );
 }

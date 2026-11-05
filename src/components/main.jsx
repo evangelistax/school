@@ -14,10 +14,12 @@ import Help from "../pages/help";
 import Enroll from "../pages/enroll";
 import Tutors from "../pages/tutors";
 import Student from "../pages/student";
+import Classroom from "../pages/classroom";
 export default function Main() {
   return (
     <main className="main">
       <Routes>
+        <Route path="/classrooms/:id" element={<Classroom></Classroom>}></Route>
         <Route path="/student/:id" element={<Student></Student>}></Route>
         <Route path="/tutors" element={<Tutors></Tutors>}></Route>
         <Route path="enrollements/enroll" element={<Enroll></Enroll>}></Route>

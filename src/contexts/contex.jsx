@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { contex } from "./utils";
 
 // variables del estado global
@@ -10,6 +10,25 @@ export const GlobalContex = ({ children }) => {
   const [data, setData] = useState([]);
 
   const [currentStep, setCurrentStep] = useState(1);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const toggleTheme = (d) => {
+      const theme = localStorage.getItem("theme");
+      if (theme == "light") {
+        if (d.classList.contains("light")) d.classList.remove("light");
+        d.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        if (d.classList.contains("dark")) d.classList.remove("dark");
+        d.classList.add("ligth");
+        localStorage.setItem("theme", "light");
+      }
+    };
+
+    toggleTheme(root);
+  }, [oscuro]);
 
   // Funciones para avanzar y retroceder
   const nextStep = (e) => {
@@ -23,7 +42,6 @@ export const GlobalContex = ({ children }) => {
     FirstName: "",
     LastName: "",
     Age: null,
-    Sex: "",
     Phone: "",
     Residence: "",
   });

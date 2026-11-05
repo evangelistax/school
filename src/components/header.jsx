@@ -1,11 +1,16 @@
 import Icons from "./icons";
-import { useApp } from "../contexts/utils";
+
 import { LuPanelLeft, LuPanelRight } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import useSidebar from "../stores/sidebarStore";
 
 export default function Header() {
-  const { isOpen, handleClick } = useApp();
-  const content = isOpen ? (
+  const status = useSidebar((state) => state.open);
+
+  const open = useSidebar((state) => state.toOpen);
+  const close = useSidebar((state) => state.toClose);
+
+  const content = status ? (
     <LuPanelLeft className="botones" />
   ) : (
     <LuPanelRight className="botones" />
@@ -15,7 +20,7 @@ export default function Header() {
     <header className="header">
       <nav>
         <div className="header-actions">
-          <button className="collapse-botton" onClick={handleClick}>
+          <button className="collapse-botton" onClick={status ? close : open}>
             {content}
           </button>
           <ul>

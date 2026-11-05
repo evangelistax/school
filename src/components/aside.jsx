@@ -1,5 +1,6 @@
-import { useApp } from "../contexts/utils";
 import { NavLink } from "react-router-dom";
+import useNotifications from "../stores/notificationStore";
+import useSidebar from "../stores/sidebarStore";
 import {
   User,
   LayoutDashboard,
@@ -18,7 +19,11 @@ import {
 
 import profile from "../assets/profile.jpg";
 export default function Aside() {
-  const { isOpen, switchs } = useApp();
+  const isOpen = useSidebar((state) => state.open);
+  const isActive = useNotifications((state) => state.open);
+  const openNotifications = useNotifications((state) => state.toOpen);
+  const closeNotifications = useNotifications((state) => state.toClose);
+
   const classname = isOpen ? "aside" : "aside collapsed";
   return (
     <div className={classname}>
@@ -67,7 +72,10 @@ export default function Aside() {
       <nav className="sidebar-settings">
         <div className="divider" />
 
-        <button className="nav-button" onClick={switchs}>
+        <button
+          className="nav-button"
+          onClick={isActive ? closeNotifications : openNotifications}
+        >
           <Bell /> <span>Notifications</span>
         </button>
         <NavLink to={"help"} className="nav-item">

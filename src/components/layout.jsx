@@ -1,14 +1,32 @@
-import { useEffect } from "react";
-import { useApp } from "../contexts/utils";
-
+import useSidebar from "../stores/sidebarStore";
+import useNotifications from "../stores/notificationStore";
+import useAi from "../stores/chatStore";
 export default function Layout({ children }) {
-  const { oscuro, isOpen } = useApp();
-  useEffect(() => {
-    const root = document.documentElement;
-    oscuro ? root.classList.add("dark") : root.classList.remove("dark");
-  }, [oscuro]);
+  const chatBar = useAi((state) => state.isOpen);
+  const status = useSidebar((state) => state.open);
+  const isOpen = useNotifications((state) => state.open);
+  const close = useNotifications((state) => state.toClose);
 
-  const classname = isOpen ? "layout" : "layout collapsed";
+  let classname = "";
+  {
+    status == true && chatBar == true && (classname = "layout chat-open");
+  }
+  {
+    status == false &&
+      chatBar == true &&
+      (classname = "layout sidebar-collapsed");
+  }
+  {
+    status == true && chatBar == false && (classname = "layout");
+  }
 
-  return <div className={classname}>{children}</div>;
+  {
+    status == false && chatBar == false && (classname = "layout all-collapsed");
+  }
+
+  return (
+    <div onClick={isOpen ? close : undefined} className={classname}>
+      {children}
+    </div>
+  );
 }
