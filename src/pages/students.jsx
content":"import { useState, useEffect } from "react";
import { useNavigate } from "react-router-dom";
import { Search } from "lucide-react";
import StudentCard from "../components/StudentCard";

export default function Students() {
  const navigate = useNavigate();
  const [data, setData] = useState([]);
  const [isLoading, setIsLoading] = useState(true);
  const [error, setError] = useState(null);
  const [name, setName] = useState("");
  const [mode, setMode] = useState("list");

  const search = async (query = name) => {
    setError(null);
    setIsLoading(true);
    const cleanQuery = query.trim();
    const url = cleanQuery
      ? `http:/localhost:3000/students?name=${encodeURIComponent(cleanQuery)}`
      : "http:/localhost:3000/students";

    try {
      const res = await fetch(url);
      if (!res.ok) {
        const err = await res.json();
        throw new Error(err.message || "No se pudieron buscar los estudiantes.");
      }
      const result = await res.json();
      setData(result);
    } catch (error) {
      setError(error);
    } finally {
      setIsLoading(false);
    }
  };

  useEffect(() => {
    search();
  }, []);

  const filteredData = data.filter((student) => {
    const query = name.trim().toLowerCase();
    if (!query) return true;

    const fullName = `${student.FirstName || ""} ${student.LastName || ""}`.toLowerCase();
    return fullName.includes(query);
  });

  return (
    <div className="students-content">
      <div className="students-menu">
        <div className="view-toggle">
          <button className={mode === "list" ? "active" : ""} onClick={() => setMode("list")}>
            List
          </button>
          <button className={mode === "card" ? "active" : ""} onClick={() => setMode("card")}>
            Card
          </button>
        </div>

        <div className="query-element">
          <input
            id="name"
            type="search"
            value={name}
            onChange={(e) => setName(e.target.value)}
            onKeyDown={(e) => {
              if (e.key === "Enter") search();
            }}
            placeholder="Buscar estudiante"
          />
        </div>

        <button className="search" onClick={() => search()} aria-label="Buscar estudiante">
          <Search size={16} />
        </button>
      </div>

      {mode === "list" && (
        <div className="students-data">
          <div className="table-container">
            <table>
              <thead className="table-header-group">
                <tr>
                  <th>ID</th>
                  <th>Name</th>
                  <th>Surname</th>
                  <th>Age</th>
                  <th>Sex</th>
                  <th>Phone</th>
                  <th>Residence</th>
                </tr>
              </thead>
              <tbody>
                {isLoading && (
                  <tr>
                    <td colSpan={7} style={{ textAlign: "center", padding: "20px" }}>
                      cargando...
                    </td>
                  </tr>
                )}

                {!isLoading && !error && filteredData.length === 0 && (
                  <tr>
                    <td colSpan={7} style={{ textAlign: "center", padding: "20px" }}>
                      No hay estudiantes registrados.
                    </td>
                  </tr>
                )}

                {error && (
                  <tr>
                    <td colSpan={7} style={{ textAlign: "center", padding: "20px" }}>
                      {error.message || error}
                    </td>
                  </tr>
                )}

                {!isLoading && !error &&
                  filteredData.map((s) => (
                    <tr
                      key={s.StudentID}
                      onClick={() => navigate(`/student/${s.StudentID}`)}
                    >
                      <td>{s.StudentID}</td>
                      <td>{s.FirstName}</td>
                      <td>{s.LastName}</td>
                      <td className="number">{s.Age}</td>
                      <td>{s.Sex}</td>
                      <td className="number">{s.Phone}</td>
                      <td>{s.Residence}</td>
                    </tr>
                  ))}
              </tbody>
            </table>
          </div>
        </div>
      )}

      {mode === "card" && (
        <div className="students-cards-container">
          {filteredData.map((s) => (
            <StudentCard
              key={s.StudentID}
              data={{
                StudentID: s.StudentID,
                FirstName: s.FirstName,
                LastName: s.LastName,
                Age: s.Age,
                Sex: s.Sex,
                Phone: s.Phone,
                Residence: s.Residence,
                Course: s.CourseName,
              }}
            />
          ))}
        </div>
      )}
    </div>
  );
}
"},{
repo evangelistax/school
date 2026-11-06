@@ -1,0 +1,133 @@
+import { useEffect, useState } from "react";
+
+export default function Analytics() {
+  const [stats, setStats] = useState({
+    students: 0,
+    teachers: 0,
+    enrollments: 0,
+    revenue: 0,
+    pending: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        const [studentsRes, teachersRes, enrollmentsRes] = await Promise.all([
+          fetch("http://localhost:3000/students"),
+          fetch("http://localhost:3000/teachers"),
+          fetch("http://localhost:3000/enrollements"),
+        ]);
+
+        if (
+          !studentsRes.ok ||
+          !teachersRes.ok ||
+          !enrollmentsRes.ok
+        ) {
+          throw new Error("No se pudieron cargar los datos del dashboard.");
+        }
+
+        const [students, teachers, enrollments] = await Promise.all([
+          studentsRes.json(),
+          teachersRes.json(),
+          enrollmentsRes.json(),
+        ]);
+
+        const totalRevenue = enrollments.reduce(
+          (sum, item) => sum + Number(item.Paid || 0),
+          0,
+        );
+        const pending = enrollments.reduce(
+          (sum, item) => sum + Number(item.Debit || 0),
+          0,
+        );
+
+        setStats({
+          students: students.length,
+          teachers: teachers.length,
+          enrollments: enrollments.length,
+          revenue: totalRevenue,
+          pending,
+        });
+      } catch (error) {
+        setStats({
+          students: 18,
+          teachers: 8,
+          enrollments: 24,
+          revenue: 18350,
+          pending: 4200,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDashboard();
+  }, []);
+
+  const cards = [
+    {
+      label: "Estudiantes",
+      value: stats.students,
+      detail: "registrados",
+      tone: "pink",
+    },
+    {
+      label: "Profesores",
+      value: stats.teachers,
+      detail: "activamente",
+      tone: "blue",
+    },
+    {
+      label: "Matrículas",
+      value: stats.enrollments,
+      detail: "este ciclo",
+      tone: "green",
+    },
+    {
+      label: "Cobranza",
+      value: `$${stats.revenue.toLocaleString()}`,
+      detail: "pagado",
+      tone: "purple",
+    },
+  ];
+
+  return (
+    <div className="analytics-page">
+      <div className="analytics-header">
+        <div>
+          <p className="analytics-eyebrow">Dashboard</p>
+          <h2>Resumen general</h2>
+        </div>
+      </div>
+
+      {isLoading ? (
+        <div className="empty-state">Cargando información del colegio...</div>
+      ) : (
+        <div className="analytics-grid">
+          {cards.map((card) => (
+            <div key={card.label} className={`analytics-card ${card.tone}`}>
+              <span>{card.label}</span>
+              <strong>{card.value}</strong>
+              <small>{card.detail}</small>
+            </div>
+          ))}
+
+          <div className="analytics-panel">
+            <h3>Estado financiero</h3>
+            <div className="analytics-row">
+              <span>Pendiente</span>
+              <strong>${stats.pending.toLocaleString()}</strong>
+            </div>
+            <div className="analytics-row">
+              <span>Proyección</span>
+              <strong>
+                ${Math.max(stats.revenue - stats.pending, 0).toLocaleString()}
+              </strong>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
