@@ -1,19 +1,90 @@
-# React + Vite
+# Sistema de gestión académica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación en desarrollo para apoyar la gestión académica del colegio de mi familia.
 
-Currently, two official plugins are available:
+## Sobre el proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+La idea nació de una necesidad personal: quería crear un sistema que pudiera ayudar a organizar la información y los procesos académicos del colegio de mi familia. Al mismo tiempo, vi la oportunidad de aprender y practicar las tecnologías que estoy estudiando.
 
-## React Compiler
+Este proyecto es también parte de mi proceso de formación. Todavía está en construcción y no cuenta con todas las características que me gustaría implementar. Iré agregando y mejorando funcionalidades a medida que avance y adquiera nuevos conocimientos. ¡Las sugerencias y comentarios respetuosos son bienvenidos!
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Repositorios
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+El proyecto está dividido en dos repositorios:
 
-## Expanding the ESLint configuration
+- Frontend: este repositorio, desarrollado con React y Vite.
+- Backend: [evangelistax/school-backend](https://github.com/evangelistax/school-backend), desarrollado con Node.js y Express.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tecnologías
+
+### Frontend
+
+- React
+- Vite
+- React Router
+- Zustand
+- Tailwind CSS
+
+### Backend
+
+- Node.js
+- Express
+- MySQL (`mysql2`)
+- Zod
+
+## Requisitos
+
+- Node.js y npm instalados.
+- Git, si quieres clonar los repositorios.
+
+## Cómo ejecutar el proyecto
+
+El frontend y el backend se ejecutan por separado. Abre una terminal para cada uno.
+
+### 1. Clonar los repositorios
+
+```bash
+git clone https://github.com/evangelistax/school.git
+git clone https://github.com/evangelistax/school-backend.git
+```
+
+### 2. Iniciar el frontend
+
+```bash
+cd school
+npm install
+npm run dev
+```
+
+Vite mostrará en la terminal la dirección local donde puedes abrir la aplicación.
+
+### 3. Iniciar el backend
+
+En otra terminal, desde la carpeta del backend:
+
+```bash
+cd school-backend
+npm install
+npm run dev
+```
+
+El backend y la base de datos pueden necesitar configuración adicional para funcionar juntos. Revisa el código y la configuración del repositorio del backend para conocer los detalles disponibles.
+
+## Scripts del frontend
+
+- `npm run dev`: inicia el servidor de desarrollo.
+- `npm run build`: genera la versión de producción.
+- `npm run preview`: permite previsualizar la compilación.
+- `npm run lint`: ejecuta ESLint.
+
+## Estado
+
+El sistema está en desarrollo y algunas partes pueden estar incompletas o cambiar con el tiempo. Este README también podrá actualizarse conforme el proyecto crezca.
+
+## Contribuciones y comentarios
+
+Como estoy aprendiendo, agradezco sugerencias, ideas y reportes de problemas que me ayuden a mejorar el proyecto. Puedes abrir un issue en el repositorio correspondiente.
+
+## Nota personal
+
+Este proyecto representa un esfuerzo personal, un desafío de aprendizaje y una forma de poner en práctica lo que estoy estudiando. Me ayuda a mejorar profesionalmente mientras construyo algo útil para mi familia.
