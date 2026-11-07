@@ -2,7 +2,7 @@ import ClassRoom from "../components/ClassroomCard";
 import { useState, useEffect } from "react";
 
 export default function Classrooms() {
-  const [classrooms, setClassrooms] = useState({});
+  const [classrooms, setClassrooms] = useState([]);
   const [err, setErr] = useState(null);
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
@@ -13,35 +13,22 @@ export default function Classrooms() {
           const err = await data.json();
           throw new Error(err.message);
         }
-
-        const result = await data.json();
-        setClassrooms(result);
+        setClassrooms(await data.json());
       } catch (error) {
         setErr(error);
       } finally {
         setIsloading(false);
       }
     }
-
     get();
   }, []);
   return (
-    <div className="classroom-container ">
+    <div className="classroom-container">
       {isLoading && <p>cargando...</p>}
       {!isLoading && err && <p>{err.message}</p>}
-      {!isLoading &&
-        !err &&
-        classrooms.map((c) => (
-          <ClassRoom
-            key={c.ClassroomName}
-            data={{
-              ClassroomName: c.ClassroomName,
-              Total: 21,
-              FirstName: c.FirstName,
-              CourseName: c.CourseName,
-            }}
-          ></ClassRoom>
-        ))}
+      {!isLoading && !err && classrooms.map((classroom) => (
+        <ClassRoom key={classroom.ClassroomName} data={classroom} />
+      ))}
     </div>
   );
 }
