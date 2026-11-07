@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Search, List, LayoutGrid } from "lucide-react";
 import TeachersCard from "../components/TeachersCard";
 
 export default function Students() {
@@ -38,13 +38,21 @@ export default function Students() {
   return (
     <div className="table-container">
       <div className="students-menu">
-        <button onClick={setList}>List</button>
-        <button onClick={setCard}>Card</button>
-        <div className="query-element">
-          <input id="name" type="search" />
+        <div>
+          <button className="button-view" onClick={setList}>
+            <List></List>
+          </button>
+          <button className="button-view" onClick={setCard}>
+            <LayoutGrid></LayoutGrid>
+          </button>
         </div>
-        <div className="search-icon">
-          <Search></Search>
+        <div>
+          <div className="query-element">
+            <input id="name" type="search" />
+          </div>
+          <div className="search-icon">
+            <Search></Search>
+          </div>
         </div>
       </div>
 

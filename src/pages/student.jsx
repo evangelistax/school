@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Euro } from "lucide-react";
 
-import profile2 from "../assets/profile.jpg";
+import profile from "../assets/user.jpeg";
+import profile2 from "../assets/user2.jpeg";
 
 export default function Student() {
   /*datos del estado compartido y navegacion*/
@@ -175,7 +176,11 @@ export default function Student() {
 
       <div className="card-aside">
         <div className="card-section">
-          <img src={profile2} className="card-img" />
+          {formData.Sex == "F" ? (
+            <img src={profile2} className="card-img" />
+          ) : (
+            <img src={profile} className="card-img" />
+          )}
         </div>
         <div className="card-section">
           <div className="card-section-menu">

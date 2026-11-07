@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, List, LayoutGrid } from "lucide-react";
 import StudentCard from "../components/StudentCard";
 
 export default function Students() {
@@ -66,13 +66,22 @@ export default function Students() {
   return (
     <div className="students-content">
       <div className="students-menu">
-        <button onClick={setList}>List</button>
-        <button onClick={setCard}>Card</button>
-        <div className="query-element">
-          <input id="name" type="search" onChange={updateName} />
+        <div>
+          <button className="button-view" onClick={setList}>
+            <List></List>
+          </button>
+          <button className="button-view" onClick={setCard}>
+            <LayoutGrid />
+          </button>
         </div>
-        <div className="search-icon">
-          <Search onClick={search}></Search>
+
+        <div>
+          <div className="query-element">
+            <input id="name" type="search" onChange={updateName} />
+          </div>
+          <div className="search-icon">
+            <Search onClick={search}></Search>
+          </div>
         </div>
       </div>
       {mode == "list" && (

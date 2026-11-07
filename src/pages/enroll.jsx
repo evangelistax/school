@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Save } from "lucide-react";
 
 export default function Enroll() {
-  const [category, setCategory] = useState("hola"); // Defaulted to match first select option
+  const [category, setCategory] = useState("Ordinary"); // Defaulted to match first select option
   const [grade, setGrade] = useState("");
   const [sex, setSex] = useState("");
   const [courses, setCourses] = useState([]);

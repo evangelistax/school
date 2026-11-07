@@ -802,7 +802,7 @@ tr:hover td {
 .students-menu {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   transition: background 1s ease;
   padding-left: 10px;
   padding-right: 20px;
@@ -813,6 +813,12 @@ tr:hover td {
 
 
 }
+
+.students-menu div {
+  display: flex;
+  gap: 4px;
+}
+
 
 .students-data {
   width: 100%;
@@ -1441,6 +1447,18 @@ input[type="date"]:focus {
   transition: background 1s ease;
 }
 
+.button-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: none;
+  background: var(--bg-primary);
+  height: 30px;
+  width: 30px;
+  color: var(--color-secondary);
+  transition: background 1s ease;
+}
+
 .student-aside {
   width: 35%;
   height: 100%;
@@ -1470,6 +1488,11 @@ input[type="date"]:focus {
   border-top-left-radius: 4px;
 
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.student-img-icon {
+  width: 100%;
+  height: 100%;
 }
 
 .student-id {

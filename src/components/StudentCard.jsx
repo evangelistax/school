@@ -1,9 +1,21 @@
 import { useNavigate } from "react-router-dom";
 
+import profile from "../assets/user.jpeg";
+import profile2 from "../assets/user2.jpeg";
+
 export default function StudentCard({ data }) {
   const navigate = useNavigate();
-  const { StudentID, FirstName, LastName, Course, Age, Sex, Residence, Phone } =
-    data;
+  const {
+    StudentID,
+    Img,
+    FirstName,
+    LastName,
+    Course,
+    Age,
+    Sex,
+    Residence,
+    Phone,
+  } = data;
   return (
     <div className="cards">
       <div
@@ -11,7 +23,16 @@ export default function StudentCard({ data }) {
         onClick={() => navigate(`/student/${StudentID}`)}
       >
         <div className="student-aside">
-          <img src={null} className="student-img" />
+          {!Img ? (
+            Sex === "M" ? (
+              <img src={profile} className="student-img" />
+            ) : (
+              <img src={profile2} className="student-img" />
+            )
+          ) : (
+            <img src={Img} className="student-img" />
+          )}
+
           <div className="student-id">{StudentID}</div>
         </div>
         <div className="student-main">

@@ -1,6 +1,10 @@
+import profile from "../assets/user.jpeg";
+import profile2 from "../assets/user2.jpeg";
+
 export default function TeachersCard({ data }) {
   const {
     FirstName,
+    Img,
     LastName,
     Titulation,
     Salary,
@@ -13,9 +17,18 @@ export default function TeachersCard({ data }) {
     <div className="cards">
       <div className="student">
         <div className="student-aside">
-          <img src={null} className="student-img" />
+          {!Img ? (
+            Sex === "M" ? (
+              <img src={profile} className="student-img" />
+            ) : (
+              <img src={profile2} className="student-img" />
+            )
+          ) : (
+            <img src={Img} className="student-img" />
+          )}
           <div className="student-id">{ProfessorID}</div>
         </div>
+
         <div className="student-main">
           <div className="student-item">
             <span className="item-title">First Name</span>
